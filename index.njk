@@ -1,0 +1,16 @@
+---
+layout: 'layout'
+title: 'Sloths Review Leaderboard'
+---
+<main>
+  <h1>Sloths Review Leaderboard</h1>
+  <h2>2021 Cycle 3</h2>
+
+  <div class="leaderboard">
+    {% for user, count in reviews %}
+      <div class="section position">{{ loop.index }}</div>
+      <div class="section name">{{ user }}</div>
+      <div class="section score">{{ count }}</div>
+    {% endfor %}
+  </div>
+</main>

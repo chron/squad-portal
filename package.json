@@ -1,0 +1,20 @@
+{
+  "name": "slothstats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [],
+  "author": "Paul Prestidge <paul@paulandemma.co.nz>",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-cache-assets": "^2.2.1",
+    "dotenv": "^10.0.0",
+    "lodash.sortby": "^4.7.0",
+    "node-fetch": "^2.6.1"
+  }
+}
