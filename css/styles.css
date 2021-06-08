@@ -4,13 +4,14 @@ html, body {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  display: grid;
+  place-items: center;
 }
 
 main {
+  width: 100%;
   max-width: 60ch;
   padding: 1rem;
-  height: 100%;
-  margin: 0 auto;
 }
 
 .leaderboard {
@@ -26,7 +27,19 @@ main {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: tomato;
+  background-color: #E5E7EB;
+}
+
+[data-position="1"] {
+  background-color: #FBBF24;
+}
+
+[data-position="2"] {
+  background-color: #DBEAFE;
+}
+
+[data-position="3"] {
+  background-color: #D97706;
 }
 
 .position {

@@ -8,9 +8,9 @@ title: 'Sloths Review Leaderboard'
 
   <div class="leaderboard">
     {% for user, count in reviews %}
-      <div class="section position">{{ loop.index }}</div>
-      <div class="section name">{{ user }}</div>
-      <div class="section score">{{ count }}</div>
+      <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
+      <div class="section name" data-position="{{loop.index}}">{{ user }}</div>
+      <div class="section score" data-position="{{loop.index}}">{{ count }}</div>
     {% endfor %}
   </div>
 </main>
