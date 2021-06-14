@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark review:approved is:pr created:>2021-06-07 SLOW- in:title", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr created:>2021-06-07 SLOW- in:title", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           reviews(states: APPROVED, first: 5) {
