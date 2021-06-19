@@ -2,8 +2,7 @@ name: Trigger Netlify Build
 on:
   workflow_dispatch:
   schedule:
-    # Every hour on the hour
-    - cron: '0 * * * *'
+    - cron: '0 7,10,13,15 * * 1-5'
 jobs:
   build:
     name: Netlify build
