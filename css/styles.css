@@ -21,10 +21,21 @@ h1 {
 
 .leaderboard {
   display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  grid-template-columns: 50px 1fr 50px 50px;
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.header {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #9CA3AF;
+}
+
+.header:not(:nth-child(2)) {
+  text-align: center;
 }
 
 .section {
@@ -56,6 +67,11 @@ h1 {
   padding: 1rem;
   font-size: 1.5rem;
   justify-content: flex-start;
+}
+
+.score {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .footer {

@@ -6,6 +6,9 @@ const query = `
     search(query: "org:storypark is:pr created:>2021-06-07 SLOW- in:title", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
+          author {
+            login
+          }
           reviews(states: APPROVED, first: 5) {
             nodes {
               author {
@@ -34,6 +37,7 @@ module.exports = async function reviews() {
     }
   });
 
+  const allAuthors = githubResponse.data.search.nodes.map(node => node.author.login);
   const allReviews = githubResponse.data.search.nodes.flatMap(node => node.reviews.nodes.map(innerNode => innerNode.author.login));
 
   const reviewCounts = allReviews.reduce((accum, username) => {
@@ -43,5 +47,9 @@ module.exports = async function reviews() {
     };
   }, {});
 
-  return sortBy(Object.entries(reviewCounts), u => -u[1]);
+  const sortedReviewCounts = sortBy(Object.entries(reviewCounts), u => -u[1]);
+
+  return sortedReviewCounts.map(([user, reviewCount]) => {
+    return [user, reviewCount, allAuthors.filter(u => u === user).length];
+  });
 }

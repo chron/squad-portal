@@ -7,10 +7,16 @@ title: 'Sloths Review Leaderboard'
   <h2>2021 Cycle 3</h2>
 
   <div class="leaderboard">
-    {% for user, count in reviews %}
+    <div class="header">position</div>
+    <div class="header">github username</div>
+    <div class="header">reviews</div>
+    <div class="header">PRs</div>
+
+    {% for user, reviewCount, prCount in github %}
       <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
       <div class="section name" data-position="{{loop.index}}">{{ user }}</div>
-      <div class="section score" data-position="{{loop.index}}">{{ count }}</div>
+      <div class="section score" data-position="{{loop.index}}">{{ reviewCount }}</div>
+      <div class="section score" data-position="{{loop.index}}">{{ prCount }}</div>
     {% endfor %}
   </div>
 
