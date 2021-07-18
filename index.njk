@@ -1,27 +1,18 @@
 ---
-layout: 'layout'
-title: 'Sloths Review Leaderboard'
+layout: 'leaderboard'
+subtitle: '2021 Cycle 4'
+startDate: '2021-08-02'
 ---
-<main>
-  <h1>Sloths Review Leaderboard</h1>
-  <h2>2021 Cycle 3</h2>
+<div class="message">
+  <p>Next cycle begins: {{ startDate }}</p>
 
-  <div class="leaderboard">
-    <div class="header">position</div>
-    <div class="header">github username</div>
-    <div class="header">reviews</div>
-    <div class="header">PRs</div>
+  <p>
+    View previous cycles:
 
-    {% for user, reviewCount, prCount in github %}
-      <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
-      <div class="section name" data-position="{{loop.index}}">{{ user }}</div>
-      <div class="section score" data-position="{{loop.index}}">{{ reviewCount }}</div>
-      <div class="section score" data-position="{{loop.index}}">{{ prCount }}</div>
+    {% for cycle in history %}
+      <a href="/{{ cycle.year }}/{{cycle.cycle}}">
+        {{ cycle.year }} cycle {{ cycle.cycle }}
+      </a>
     {% endfor %}
-  </div>
-
-  <aside class="footer">
-    <div>Made with ♥ by <a href="https://twitter.com/chron9">Paul</a></div>
-    <div>Last updated {{ site.buildTime.toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' }) }} </div>
-  </aside>
-</main>
+  </p>
+</div>

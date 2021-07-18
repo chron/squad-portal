@@ -1,0 +1,10 @@
+---
+layout: 'leaderboard'
+pagination:
+    data: history
+    size: 1
+    alias: cycle
+renderData:
+  subtitle: "{{ cycle.year }} Cycle {{ cycle.cycle }} ({{ cycle.startDate }} — {{ cycle.endDate }})"
+permalink: "{{ cycle.year }}/{{ cycle.cycle }}/"
+---

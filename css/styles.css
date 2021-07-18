@@ -19,12 +19,18 @@ h1 {
   font-weight: bold;
 }
 
+a, a:visited {
+  color: inherit;
+  font-weight: bold;
+}
+
+
 .leaderboard {
   display: grid;
   grid-template-columns: 50px 1fr 50px 50px;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .header {
@@ -82,11 +88,19 @@ h1 {
 }
 
 .footer a, .footer a:visited {
-  color: inherit;
-  font-weight: bold;
   text-decoration: none;
 }
 
 .footer a:hover {
   text-decoration: underline;
+}
+
+.message {
+  margin: 2rem 0;
+  font-size: 1.2rem;
+  color: #9CA3AF;
+}
+
+.message > p + p {
+  margin-top: 0.5rem;
 }

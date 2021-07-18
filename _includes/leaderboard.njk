@@ -1,0 +1,30 @@
+---
+layout: layout
+---
+<main>
+  <h1>{{ site.title }}</h1>
+  <h2>{{ subtitle or renderData.subtitle }}</h2>
+
+  {% if scores.length %}
+    <div class="leaderboard">
+      <div class="header">position</div>
+      <div class="header">github username</div>
+      <div class="header">reviews</div>
+      <div class="header">PRs</div>
+
+      {% for score in scores %}
+        <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
+        <div class="section name" data-position="{{loop.index}}">{{ score.user }}</div>
+        <div class="section score" data-position="{{loop.index}}">{{ score.reviewCount }}</div>
+        <div class="section score" data-position="{{loop.index}}">{{ score.prCount }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {{ content | safe }}
+
+  <aside class="footer">
+    <div>Made with ♥ by <a href="https://twitter.com/chron9">Paul</a></div>
+    <div>Last updated {{ site.buildTime.toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' }) }} </div>
+  </aside>
+</main>

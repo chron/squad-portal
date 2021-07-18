@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr created:>2021-06-07 SLOW- in:title", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr created:>2021-08-02 SLOW- in:title", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           author {
@@ -22,7 +22,7 @@ const query = `
   }
 `;
 
-module.exports = async function reviews() {
+module.exports = async function scores() {
   const githubResponse = await Cache('https://api.github.com/graphql', {
     duration: "1h",
     type: 'json',
@@ -50,6 +50,10 @@ module.exports = async function reviews() {
   const sortedReviewCounts = sortBy(Object.entries(reviewCounts), u => -u[1]);
 
   return sortedReviewCounts.map(([user, reviewCount]) => {
-    return [user, reviewCount, allAuthors.filter(u => u === user).length];
+    return {
+      user,
+      reviewCount,
+      prCount: allAuthors.filter(u => u === user).length
+    };
   });
 }
