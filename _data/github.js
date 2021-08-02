@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr created:>2021-08-02 SLOW- in:title", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr created:>2021-08-01 SLOW- in:title", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           author {
@@ -47,12 +47,12 @@ module.exports = async function scores() {
     };
   }, {});
 
-  const sortedReviewCounts = sortBy(Object.entries(reviewCounts), u => -u[1]);
+  const sortedAuthors = sortBy(allAuthors, u => -reviewCounts[u]);
 
-  return sortedReviewCounts.map(([user, reviewCount]) => {
+  return sortedAuthors.map((user) => {
     return {
       user,
-      reviewCount,
+      reviewCount: reviewCounts[user] || 0,
       prCount: allAuthors.filter(u => u === user).length
     };
   });
