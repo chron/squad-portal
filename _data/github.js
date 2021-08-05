@@ -37,7 +37,8 @@ module.exports = async function scores() {
     }
   });
 
-  const allAuthors = githubResponse.data.search.nodes.map(node => node.author.login);
+  const prAuthors = githubResponse.data.search.nodes.map(node => node.author.login);
+  const uniqueAuthors = [...new Set(prAuthors)];
   const allReviews = githubResponse.data.search.nodes.flatMap(node => node.reviews.nodes.map(innerNode => innerNode.author.login));
 
   const reviewCounts = allReviews.reduce((accum, username) => {
@@ -47,13 +48,13 @@ module.exports = async function scores() {
     };
   }, {});
 
-  const sortedAuthors = sortBy(allAuthors, u => -reviewCounts[u]);
+  const sortedAuthors = sortBy(uniqueAuthors, u => -reviewCounts[u]);
 
   return sortedAuthors.map((user) => {
     return {
       user,
       reviewCount: reviewCounts[user] || 0,
-      prCount: allAuthors.filter(u => u === user).length
+      prCount: prAuthors.filter(u => u === user).length
     };
   });
 }
