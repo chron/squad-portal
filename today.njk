@@ -1,0 +1,14 @@
+---
+layout: 'layout'
+---
+<main>
+  <h1>What's Slothin' Today?</h1>
+
+  <ul>
+    {% for pr in githubActive %}
+      <li>
+        {{ pr.title }} (by {{ pr.author }})
+      </li>
+    {% endfor %}
+  </ul>
+</main>
