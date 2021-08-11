@@ -8,13 +8,25 @@ title: 'Sloths'
   {% if githubActive.needReviewers.length > 0 %}
     <h2>Pull requests that need more reviewers</h2>
 
+    <div class="pull-request header">
+      <div>author</div>
+      <div>jira</div>
+      <div>title</div>
+      <div>diff</div>
+      <div>age</div>
+      <div>#1</div>
+      <div>#2</div>
+    </div>
+
     {% for pr in githubActive.needReviewers %}
       <div class="pull-request">
-        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        {{ pr.author | avatar | safe }}
         <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
         <div>{{ pr.title }}</div>
         <div class="pull-request__size">{{ pr.size }}</div>
         <div>{{ pr.lastLabelChange | timedist }}</div>
+        {{ pr.assigned[0] | avatar | safe }}
+        {{ pr.assigned[1] | avatar | safe }}
       </div>
     {% endfor %}
   {% endif %}
@@ -22,13 +34,25 @@ title: 'Sloths'
   {% if githubActive.notOnStaging.length > 0 %}
     <h2>Pull requests in test that haven't made it to staging</h2>
 
+    <div class="pull-request header">
+      <div>author</div>
+      <div>jira</div>
+      <div>title</div>
+      <div>diff</div>
+      <div>age</div>
+      <div>#1</div>
+      <div>#2</div>
+    </div>
+
     {% for pr in githubActive.notOnStaging %}
       <div class="pull-request">
-        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        {{ pr.author | avatar | safe }}
         <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
         <div>{{ pr.title }}</div>
         <div class="pull-request__size">{{ pr.size }}</div>
         <div>{{ pr.lastLabelChange | timedist }}</div>
+        {{ pr.assigned[0] | avatar | safe }}
+        {{ pr.assigned[1] | avatar | safe }}
       </div>
     {% endfor %}
   {% endif %}
@@ -36,13 +60,25 @@ title: 'Sloths'
   {% if githubActive.inTest.length > 0 %}
     <h2>Pull requests that are being tested</h2>
 
+    <div class="pull-request header">
+      <div>author</div>
+      <div>jira</div>
+      <div>title</div>
+      <div>diff</div>
+      <div>age</div>
+      <div>#1</div>
+      <div>#2</div>
+    </div>
+
     {% for pr in githubActive.inTest %}
       <div class="pull-request">
-        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        {{ pr.author | avatar | safe }}
         <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
         <div>{{ pr.title }}</div>
         <div class="pull-request__size">{{ pr.size }}</div>
         <div>{{ pr.lastLabelChange | timedist }}</div>
+        {{ pr.assigned[0] | avatar | safe }}
+        {{ pr.assigned[1] | avatar | safe }}
       </div>
     {% endfor %}
   {% endif %}

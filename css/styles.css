@@ -11,8 +11,12 @@ body {
 
 main {
   width: 100%;
-  max-width: 60ch;
+  max-width: 100ch;
   padding: 1rem;
+}
+
+.main--leaderboard {
+  max-width: 60ch;
 }
 
 h1 {
@@ -106,10 +110,14 @@ a, a:visited {
   margin-top: 0.5rem;
 }
 
+.github-avatar {
+  border-radius: 50%;
+}
+
 .pull-request {
   width: 100%;
   display: grid;
-  grid-template-columns: 40px 80px 1fr 80px 100px;
+  grid-template-columns: 40px 80px 1fr 100px 120px 40px 40px;
   align-items: center;
   gap: 1rem;
 }

@@ -16,6 +16,12 @@ module.exports = function(eleventyConfig) {
     return formatDistance(parseISO(input), new Date)
   });
 
+  eleventyConfig.addFilter('avatar', function(input) {
+    if (!input) { return ''; }
+
+    return `<img class="github-avatar" src="${input.avatar}" alt="Avatar of ${input.name}" />`;
+  });
+
   return {
     passthroughFileCopy: true,
   }

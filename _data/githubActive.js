@@ -23,6 +23,7 @@ const query = `
             nodes {
               author {
                 login
+                avatarUrl(size: 50)
               }
             }
           }
@@ -70,16 +71,13 @@ module.exports = async function() {
     return {
       title: titleMatch ? titleMatch[2] : node.title,
       jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
-      author: node.author.login,
-      authorAvatar: node.author.avatarUrl,
-      assigned: node.reviews.nodes.map(r => r.author.login),
+      author: { name: node.author.login, avatar: node.author.avatarUrl },
+      assigned: node.reviews.nodes.map(r => ({ name: r.author.login, avatar: r.author.avatarUrl })),
       labels: node.labels.nodes.map(n => n.name),
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
     };
   });
-
-  console.log(prs);
 
   return {
     needReviewers: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
