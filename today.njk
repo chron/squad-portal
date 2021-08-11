@@ -48,7 +48,12 @@ title: 'Sloths'
       <div class="pull-request">
         {{ pr.author | avatar | safe }}
         <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
-        <div>{{ pr.title }}</div>
+        <div>
+          {% if pr.labels.includes('Merge conflict') %}
+            <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
+          {% endif %}
+          {{ pr.title }}
+        </div>
         <div class="pull-request__size">{{ pr.size }}</div>
         <div>{{ pr.lastLabelChange | timedist }}</div>
         {{ pr.assigned[0] | avatar | safe }}

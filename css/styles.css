@@ -137,7 +137,12 @@ h2 + .pull-request {
   font-size: 0.8rem;
 }
 
-
 .pull-request__diff {
   font-size: 0.8rem;
+}
+
+.merge-conflict {
+  font-size: 1.5rem;
+  color: crimson;
+  line-height: 0.5;
 }
