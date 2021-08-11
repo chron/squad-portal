@@ -1,14 +1,49 @@
 ---
 layout: 'layout'
+title: 'Sloths'
 ---
 <main>
   <h1>What's Slothin' Today?</h1>
 
-  <ul>
-    {% for pr in githubActive %}
-      <li>
-        {{ pr.title }} (by {{ pr.author }})
-      </li>
+  {% if githubActive.needReviewers.length > 0 %}
+    <h2>Pull requests that need more reviewers</h2>
+
+    {% for pr in githubActive.needReviewers %}
+      <div class="pull-request">
+        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
+        <div>{{ pr.title }}</div>
+        <div class="pull-request__size">{{ pr.size }}</div>
+        <div>{{ pr.lastLabelChange | timedist }}</div>
+      </div>
     {% endfor %}
-  </ul>
+  {% endif %}
+
+  {% if githubActive.notOnStaging.length > 0 %}
+    <h2>Pull requests in test that haven't made it to staging</h2>
+
+    {% for pr in githubActive.notOnStaging %}
+      <div class="pull-request">
+        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
+        <div>{{ pr.title }}</div>
+        <div class="pull-request__size">{{ pr.size }}</div>
+        <div>{{ pr.lastLabelChange | timedist }}</div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if githubActive.inTest.length > 0 %}
+    <h2>Pull requests that are being tested</h2>
+
+    {% for pr in githubActive.inTest %}
+      <div class="pull-request">
+        <img src="{{ pr.authorAvatar }}" alt="Avatar of {{ pr.author }}" />
+        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
+        <div>{{ pr.title }}</div>
+        <div class="pull-request__size">{{ pr.size }}</div>
+        <div>{{ pr.lastLabelChange | timedist }}</div>
+      </div>
+    {% endfor %}
+  {% endif %}
 </main>

@@ -82,6 +82,8 @@ a, a:visited {
 .footer {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 2rem;
   color: #9CA3AF;
 }
@@ -102,4 +104,32 @@ a, a:visited {
 
 .message > p + p {
   margin-top: 0.5rem;
+}
+
+.pull-request {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40px 80px 1fr 80px 100px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pull-request + .pull-request {
+  margin-top: 0.5rem;
+}
+
+h2 + .pull-request {
+  margin-top: 1.5rem;
+}
+.pull-request + :not(.pull-request) {
+  margin: 1.5rem 0;
+}
+
+.pull-request__jira {
+  font-size: 0.8rem;
+}
+
+
+.pull-request__diff {
+  font-size: 0.8rem;
 }

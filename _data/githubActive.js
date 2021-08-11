@@ -3,12 +3,21 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr is:open SLOW- in:title", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr is:open SLOW- NOT combo in:title", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           title
+          createdAt
+          additions
+          deletions
+          labels(first: 10) {
+            nodes {
+              name
+            }
+          }
           author {
             login
+            avatarUrl(size: 50)
           }
           reviews(states: APPROVED, first: 5) {
             nodes {
@@ -17,11 +26,28 @@ const query = `
               }
             }
           }
+          timelineItems(last: 30, itemTypes: [LABELED_EVENT]) {
+            nodes {
+              __typename
+              ... on LabeledEvent {
+                createdAt
+                label {
+                  name
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 `;
+
+const READY_TO_REVIEW = '1. Ready for code review';
+const READY_TO_TEST = '3. Ready for testing';
+const ON_STAGING = '5. On StagingAU';
+
+// Merge conflict, Combo, 0. Early Feedback Requested, , 6. Ready for deploy to prod
 
 module.exports = async function() {
   const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
@@ -34,15 +60,30 @@ module.exports = async function() {
         'Accept': 'application/json',
         'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ query }),
     }
   });
 
-  return githubResponse.data.search.nodes.map((node) => {
+  const prs = githubResponse.data.search.nodes.map((node) => {
+    const titleMatch = node.title.match(/^\s*\[?(SLOW[- ]\w+)\]?\s*(?:-\s*)?(.+)$/i);
+
     return {
-      title: node.title,
+      title: titleMatch ? titleMatch[2] : node.title,
+      jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
       author: node.author.login,
-      reviewers: node.reviews.nodes.map(r => r.author.login),
+      authorAvatar: node.author.avatarUrl,
+      assigned: node.reviews.nodes.map(r => r.author.login),
+      labels: node.labels.nodes.map(n => n.name),
+      lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
+      size: `+${node.additions} -${node.deletions}`,
     };
   });
+
+  console.log(prs);
+
+  return {
+    needReviewers: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
+    notOnStaging: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),
+    inTest: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING) && pr.assigned.length > 0),
+  }
 }
