@@ -132,12 +132,25 @@ a, a:visited {
   font-size: 0.8rem;
 }
 
-.github-avatar {
-  border-radius: 50%;
-}
-
 .merge-conflict {
   font-size: 1.5rem;
   color: crimson;
   line-height: 0.5;
+}
+
+.avatar__wrapper {
+  position: relative;
+}
+
+.avatar__image {
+  border-radius: 50%;
+}
+
+.avatar__overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: forestgreen;
+  font-size: 2rem;
 }

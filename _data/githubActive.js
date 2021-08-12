@@ -101,6 +101,7 @@ module.exports = async function() {
     {
       title: 'Pull requests that are being reviewed',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
+      showReviewStatus: true,
     },
     // TODO: PRs that have changes requested? Right now we only show accepted reviews
     {

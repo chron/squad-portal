@@ -19,7 +19,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter('avatar', function(input) {
     if (!input) { return ''; }
 
-    return `<img class="github-avatar" src="${input.avatar}" alt="Avatar of ${input.name}" />`;
+    return `<img class="avatar__image" src="${input.avatar}" alt="Avatar of ${input.name}" />`;
   });
 
   return {

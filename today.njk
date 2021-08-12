@@ -33,7 +33,12 @@ title: 'Sloths'
           </div>
           <div class="pull-request__small">{{ pr.size }}</div>
           <div class="pull-request__small">{{ pr.lastLabelChange | timedist }}</div>
-          <div>{{ pr.assigned[0] | avatar | safe }}</div>
+          <div class="avatar__wrapper">
+            {{ pr.assigned[0] | avatar | safe }}
+            {% if category.showReviewStatus %}
+              <div class="avatar__overlay">✔</div>
+            {% endif %}
+          </div>
           <div>{{ pr.assigned[1] | avatar | safe }}</div>
         {% endfor %}
       {% endif %}
