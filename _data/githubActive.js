@@ -7,6 +7,7 @@ const query = `
       nodes {
         ... on PullRequest {
           title
+          url
           createdAt
           additions
           deletions
@@ -70,6 +71,7 @@ module.exports = async function() {
 
     return {
       title: titleMatch ? titleMatch[2] : node.title,
+      url: node.url,
       jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
       author: { name: node.author.login, avatar: node.author.avatarUrl },
       assigned: node.reviews.nodes.map(r => ({ name: r.author.login, avatar: r.author.avatarUrl })),
@@ -79,9 +81,21 @@ module.exports = async function() {
     };
   });
 
-  return {
-    needReviewers: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
-    notOnStaging: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),
-    inTest: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING) && pr.assigned.length > 0),
-  }
+  return [
+    {
+      title: 'Pull requests that need more reviewers',
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
+    },
+    // waiting for reviewers
+    {
+      title: 'Pull requests in test that haven\'t made it to staging',
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),
+    },
+    {
+      title: 'Pull requests that are being tested',
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING) && pr.assigned.length > 0),
+    },
+    // ready for next release
+    // other?
+  ];
 }

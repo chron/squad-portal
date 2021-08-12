@@ -23,8 +23,5 @@ layout: layout
 
   {{ content | safe }}
 
-  <aside class="footer">
-    <div>Made with ♥ by <a href="https://twitter.com/chron9">Paul</a></div>
-    <div>Last updated {{ site.buildTime.toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' }) }} </div>
-  </aside>
+  {% include '_footer.njk' %}
 </main>

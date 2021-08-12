@@ -5,86 +5,42 @@ title: 'Sloths'
 <main>
   <h1>What's Slothin' Today?</h1>
 
-  {% if githubActive.needReviewers.length > 0 %}
-    <h2>Pull requests that need more reviewers</h2>
+  {% for category in githubActive %}
+    {% if category.prs.length > 0 %}
+      <h2>{{ category.title }}</h2>
 
-    <div class="pull-request header">
-      <div>author</div>
-      <div>jira</div>
-      <div>title</div>
-      <div>diff</div>
-      <div>age</div>
-      <div>#1</div>
-      <div>#2</div>
-    </div>
-
-    {% for pr in githubActive.needReviewers %}
-      <div class="pull-request">
-        {{ pr.author | avatar | safe }}
-        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
-        <div>{{ pr.title }}</div>
-        <div class="pull-request__size">{{ pr.size }}</div>
-        <div>{{ pr.lastLabelChange | timedist }}</div>
-        {{ pr.assigned[0] | avatar | safe }}
-        {{ pr.assigned[1] | avatar | safe }}
+      <div class="pull-request header">
+        <div>author</div>
+        <div>jira</div>
+        <div>title</div>
+        <div>diff</div>
+        <div>age</div>
+        <div>#1</div>
+        <div>#2</div>
       </div>
-    {% endfor %}
-  {% endif %}
 
-  {% if githubActive.notOnStaging.length > 0 %}
-    <h2>Pull requests in test that haven't made it to staging</h2>
-
-    <div class="pull-request header">
-      <div>author</div>
-      <div>jira</div>
-      <div>title</div>
-      <div>diff</div>
-      <div>age</div>
-      <div>#1</div>
-      <div>#2</div>
-    </div>
-
-    {% for pr in githubActive.notOnStaging %}
-      <div class="pull-request">
-        {{ pr.author | avatar | safe }}
-        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
-        <div>
-          {% if pr.labels.includes('Merge conflict') %}
-            <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
-          {% endif %}
-          {{ pr.title }}
+      {% for pr in category.prs %}
+        <div class="pull-request">
+          {{ pr.author | avatar | safe }}
+          <div class="pull-request__jira">
+            <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
+              {{ pr.jira }}
+            </a>
+          </div>
+          <div>
+            {% if pr.labels.includes('Merge conflict') %}
+              <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
+            {% endif %}
+            <a href="{{ pr.url }}" target="_blank" rel="noopener noreferrer">{{ pr.title }}</a>
+          </div>
+          <div class="pull-request__size">{{ pr.size }}</div>
+          <div>{{ pr.lastLabelChange | timedist }}</div>
+          {{ pr.assigned[0] | avatar | safe }}
+          {{ pr.assigned[1] | avatar | safe }}
         </div>
-        <div class="pull-request__size">{{ pr.size }}</div>
-        <div>{{ pr.lastLabelChange | timedist }}</div>
-        {{ pr.assigned[0] | avatar | safe }}
-        {{ pr.assigned[1] | avatar | safe }}
-      </div>
-    {% endfor %}
-  {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
 
-  {% if githubActive.inTest.length > 0 %}
-    <h2>Pull requests that are being tested</h2>
-
-    <div class="pull-request header">
-      <div>author</div>
-      <div>jira</div>
-      <div>title</div>
-      <div>diff</div>
-      <div>age</div>
-      <div>#1</div>
-      <div>#2</div>
-    </div>
-
-    {% for pr in githubActive.inTest %}
-      <div class="pull-request">
-        {{ pr.author | avatar | safe }}
-        <div class="pull-request__jira"><a href="{{ site.jiraBaseUrl }}{{ pr.jira }}">{{ pr.jira }}</a></div>
-        <div>{{ pr.title }}</div>
-        <div class="pull-request__size">{{ pr.size }}</div>
-        <div>{{ pr.lastLabelChange | timedist }}</div>
-        {{ pr.assigned[0] | avatar | safe }}
-        {{ pr.assigned[1] | avatar | safe }}
-      </div>
-    {% endfor %}
-  {% endif %}
+  {% include '_footer.njk' %}
 </main>
