@@ -28,6 +28,12 @@ const query = `
               }
             }
           }
+          assignees(first: 5) {
+            nodes {
+              login
+              avatarUrl(size: 50)
+            }
+          }
           timelineItems(last: 30, itemTypes: [LABELED_EVENT]) {
             nodes {
               __typename
@@ -47,9 +53,10 @@ const query = `
 
 const READY_TO_REVIEW = '1. Ready for code review';
 const READY_TO_TEST = '3. Ready for testing';
+const READY_TO_RELEASE = '6. Ready for deploy to prod';
 const ON_STAGING = '5. On StagingAU';
 
-// Merge conflict, Combo, 0. Early Feedback Requested, , 6. Ready for deploy to prod
+// Merge conflict, Combo, 0. Early Feedback Requested, ,
 
 module.exports = async function() {
   const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
@@ -66,6 +73,10 @@ module.exports = async function() {
     }
   });
 
+  if (!githubResponse.data) {
+    console.error(githubResponse);
+  }
+
   const prs = githubResponse.data.search.nodes.map((node) => {
     const titleMatch = node.title.match(/^\s*\[?(SLOW[- ]\w+)\]?\s*(?:-\s*)?(.+)$/i);
 
@@ -74,7 +85,8 @@ module.exports = async function() {
       url: node.url,
       jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
       author: { name: node.author.login, avatar: node.author.avatarUrl },
-      assigned: node.reviews.nodes.map(r => ({ name: r.author.login, avatar: r.author.avatarUrl })),
+      reviewers: node.reviews.nodes.map(r => ({ name: r.author.login, avatar: r.author.avatarUrl })),
+      assigned: node.assignees.nodes.map(a => ({ name: a.login, avatar: a.avatarUrl })),
       labels: node.labels.nodes.map(n => n.name),
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
@@ -86,7 +98,10 @@ module.exports = async function() {
       title: 'Pull requests that need more reviewers',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
     },
-    // waiting for reviewers
+    {
+      title: 'Pull requests that are being reviewed',
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
+    },
     {
       title: 'Pull requests in test that haven\'t made it to staging',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),
@@ -95,7 +110,10 @@ module.exports = async function() {
       title: 'Pull requests that are being tested',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING) && pr.assigned.length > 0),
     },
-    // ready for next release
+    {
+      title: 'Ready to go out in next release',
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_RELEASE)),
+    },
     // other?
   ];
 }
