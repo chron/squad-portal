@@ -151,6 +151,6 @@ a, a:visited {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: forestgreen;
+  color: white;
   font-size: 2rem;
 }
