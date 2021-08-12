@@ -6,38 +6,38 @@ title: 'Sloths'
   <h1>What's Slothin' Today?</h1>
 
   <div class="pull-request-grid">
-  {% for category in githubActive %}
-    {% if category.prs.length > 0 %}
-      <h2>{{ category.title }}</h2>
+    {# <div class="header">author</div>
+    <div class="header">jira</div>
+    <div class="header">title</div>
+    <div class="header">diff</div>
+    <div class="header">age</div>
+    <div class="header">#1</div>
+    <div class="header">#2</div> #}
 
-      <div class="header">author</div>
-      <div class="header">jira</div>
-      <div class="header">title</div>
-      <div class="header">diff</div>
-      <div class="header">age</div>
-      <div class="header">#1</div>
-      <div class="header">#2</div>
+    {% for category in githubActive %}
+      {% if category.prs.length > 0 %}
+        <h2>{{ category.title }}</h2>
 
-      {% for pr in category.prs %}
-        {{ pr.author | avatar | safe }}
-        <div class="pull-request__jira">
-          <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
-            {{ pr.jira }}
-          </a>
+        {% for pr in category.prs %}
+          {{ pr.author | avatar | safe }}
+          <div class="pull-request__jira">
+            <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
+              {{ pr.jira }}
+            </a>
+            </div>
+          <div>
+            {% if pr.labels.includes('Merge conflict') %}
+              <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
+            {% endif %}
+            <a href="{{ pr.url }}" target="_blank" rel="noopener noreferrer">{{ pr.title }}</a>
           </div>
-        <div>
-          {% if pr.labels.includes('Merge conflict') %}
-            <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
-          {% endif %}
-          <a href="{{ pr.url }}" target="_blank" rel="noopener noreferrer">{{ pr.title }}</a>
-        </div>
-        <div class="pull-request__small">{{ pr.size }}</div>
-        <div class="pull-request__small">{{ pr.lastLabelChange | timedist }}</div>
-        <div>{{ pr.assigned[0] | avatar | safe }}</div>
-        <div>{{ pr.assigned[1] | avatar | safe }}</div>
-      {% endfor %}
-    {% endif %}
-  {% endfor %}
+          <div class="pull-request__small">{{ pr.size }}</div>
+          <div class="pull-request__small">{{ pr.lastLabelChange | timedist }}</div>
+          <div>{{ pr.assigned[0] | avatar | safe }}</div>
+          <div>{{ pr.assigned[1] | avatar | safe }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
   </div>
 
   {% include '_footer.njk' %}
