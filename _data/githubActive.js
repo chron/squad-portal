@@ -102,6 +102,7 @@ module.exports = async function() {
       title: 'Pull requests that are being reviewed',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
     },
+    // TODO: PRs that have changes requested? Right now we only show accepted reviews
     {
       title: 'Pull requests in test that haven\'t made it to staging',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),

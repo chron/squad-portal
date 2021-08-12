@@ -110,11 +110,7 @@ a, a:visited {
   margin-top: 0.5rem;
 }
 
-.github-avatar {
-  border-radius: 50%;
-}
-
-.pull-request {
+.pull-request-grid {
   width: 100%;
   display: grid;
   grid-template-columns: 40px 80px 1fr 100px 120px 40px 40px;
@@ -122,23 +118,22 @@ a, a:visited {
   gap: 1rem;
 }
 
-.pull-request + .pull-request {
-  margin-top: 0.5rem;
-}
-
-h2 + .pull-request {
-  margin-top: 1.5rem;
-}
-.pull-request + :not(.pull-request) {
-  margin: 1.5rem 0;
+.pull-request-grid > h2 {
+  grid-column: span 7;
+  margin-top: 2rem;
 }
 
 .pull-request__jira {
   font-size: 0.8rem;
 }
 
-.pull-request__diff {
+.pull-request__small {
+  text-align: center;
   font-size: 0.8rem;
+}
+
+.github-avatar {
+  border-radius: 50%;
 }
 
 .merge-conflict {
