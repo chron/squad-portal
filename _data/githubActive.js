@@ -78,7 +78,7 @@ module.exports = async function() {
   }
 
   const prs = githubResponse.data.search.nodes.map((node) => {
-    const titleMatch = node.title.match(/^\s*\[?(SLOW[- ]\w+)\]?\s*(?:-\s*)?(.+)$/i);
+    const titleMatch = node.title.match(/^\s*\[?(SLOW[- ]\w+)\]?\s*(?:[:-]\s*)?(.+)$/i);
 
     return {
       title: titleMatch ? titleMatch[2] : node.title,
@@ -97,6 +97,7 @@ module.exports = async function() {
     {
       title: 'Pull requests that need more reviewers',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
+      showReviewStatus: true,
     },
     {
       title: 'Pull requests that are being reviewed',
