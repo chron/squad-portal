@@ -51,12 +51,13 @@ const query = `
   }
 `;
 
+const EARLY_FEEDBACK = '0. Early Feedback Requested';
 const READY_TO_REVIEW = '1. Ready for code review';
 const READY_TO_TEST = '3. Ready for testing';
 const READY_TO_RELEASE = '6. Ready for deploy to prod';
 const ON_STAGING = '5. On StagingAU';
-
-// Merge conflict, Combo, 0. Early Feedback Requested, ,
+const COMBO = 'Combo';
+//const MERGE_CONFLICT = 'Merge conflict';
 
 module.exports = async function() {
   const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
@@ -94,6 +95,12 @@ module.exports = async function() {
   });
 
   return [
+
+    {
+      title: 'Pull requests that could use some early feedback',
+      prs: prs.filter(pr => pr.labels.includes(EARLY_FEEDBACK)),
+      showReviewStatus: true,
+    },
     {
       title: 'Pull requests that need more reviewers',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
@@ -107,11 +114,11 @@ module.exports = async function() {
     // TODO: PRs that have changes requested? Right now we only show accepted reviews
     {
       title: 'Pull requests in test that haven\'t made it to staging',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !pr.labels.includes(ON_STAGING)),
+      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !(pr.labels.includes(ON_STAGING) || pr.labels.includes(COMBO))),
     },
     {
       title: 'Pull requests that are being tested',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING) && pr.assigned.length > 0),
+      prs: prs.filter(pr => ((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0),
     },
     {
       title: 'Ready to go out in next release',
