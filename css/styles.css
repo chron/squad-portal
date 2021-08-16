@@ -142,7 +142,7 @@ a, a:visited {
   position: relative;
 }
 
-.avatar__image {
+.avatar__wrapper > img {
   border-radius: 50%;
 }
 

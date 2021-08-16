@@ -18,20 +18,20 @@ const query = `
           }
           author {
             login
-            avatarUrl(size: 50)
+            avatarUrl(size: 80)
           }
           reviews(states: APPROVED, first: 5) {
             nodes {
               author {
                 login
-                avatarUrl(size: 50)
+                avatarUrl(size: 80)
               }
             }
           }
           assignees(first: 5) {
             nodes {
               login
-              avatarUrl(size: 50)
+              avatarUrl(size: 80)
             }
           }
           timelineItems(last: 30, itemTypes: [LABELED_EVENT]) {
@@ -87,7 +87,7 @@ module.exports = async function() {
       jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
       author: { name: node.author.login, avatar: node.author.avatarUrl },
       reviewers: node.reviews.nodes.map(r => ({ name: r.author.login, avatar: r.author.avatarUrl })),
-      assigned: node.assignees.nodes.map(a => ({ name: a.login, avatar: a.avatarUrl })),
+      assigned: node.assignees.nodes.map(a => ({ name: a.login, avatar: a.avatarUrl, hasReviewed: node.reviews.nodes.some(n => n.author.login === a.login) })),
       labels: node.labels.nodes.map(n => n.name),
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
