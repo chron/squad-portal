@@ -184,6 +184,10 @@ a, a:visited {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  color: #EC4899;
   font-size: 2rem;
+  text-shadow:
+      0 0 4px #EC4899,
+      0 0 8px #F472B6,
+      0 0 12px #F9A8D4;
 }
