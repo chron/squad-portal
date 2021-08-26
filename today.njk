@@ -38,6 +38,11 @@ title: 'Sloths'
             {% if pr.labels.includes('Merge conflict') %}
               <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
             {% endif %}
+
+            {% if pr.labels.includes('Before Merge TODO') %}
+              <span class="merge-conflict" title="This PR has a Before merge TODO">🔀 </span>
+            {% endif %}
+
             <a href="{{ pr.url }}" target="_blank" rel="noopener noreferrer">{{ pr.title }}</a>
           </div>
 
