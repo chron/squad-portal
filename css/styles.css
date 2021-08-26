@@ -117,7 +117,7 @@ a, a:visited {
 .pull-request-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 40px 80px 1fr 100px 120px 40px 40px;
+  grid-template-columns: 40px 80px 1fr max-content max-content 40px 40px;
   align-items: center;
   gap: 1rem;
 }
@@ -149,8 +149,7 @@ a, a:visited {
 }
 
 .pull-request__small {
-  text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .merge-conflict {
