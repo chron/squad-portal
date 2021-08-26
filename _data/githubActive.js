@@ -99,30 +99,36 @@ module.exports = async function() {
     {
       title: 'Pull requests that could use some early feedback',
       prs: prs.filter(pr => pr.labels.includes(EARLY_FEEDBACK)),
+      classification: 'review',
       showReviewStatus: true,
     },
     {
       title: 'Pull requests that need more reviewers',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
+      classification: 'review',
       showReviewStatus: true,
     },
     {
       title: 'Pull requests that are being reviewed',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
+      classification: 'review',
       showReviewStatus: true,
     },
     // TODO: PRs that have changes requested? Right now we only show accepted reviews
     {
       title: 'Pull requests in test that haven\'t made it to staging',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !(pr.labels.includes(ON_STAGING) || pr.labels.includes(COMBO))),
+      classification: 'test',
     },
     {
       title: 'Pull requests that are being tested',
       prs: prs.filter(pr => ((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0),
+      classification: 'test',
     },
     {
       title: 'Ready to go out in next release',
       prs: prs.filter(pr => pr.labels.includes(READY_TO_RELEASE)),
+      classification: 'finished',
     },
     // other?
   ];

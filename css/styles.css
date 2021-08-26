@@ -7,6 +7,10 @@ body {
   place-items: center;
   background-color: #F9FAFB;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  --color-review: #93C5FD;
+  --color-test: #FDE68A;
+  --color-finished: #34D399;
 }
 
 main {
@@ -118,9 +122,26 @@ a, a:visited {
   gap: 1rem;
 }
 
-.pull-request-grid > h2 {
+.pull-request-grid > .category-title {
   grid-column: span 7;
   margin-top: 2rem;
+}
+
+.category-title {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.category-title[data-classification="review"] {
+  background-color: var(--color-review);
+}
+
+.category-title[data-classification="test"] {
+  background-color: var(--color-test);
+}
+
+.category-title[data-classification="finished"] {
+  background-color: var(--color-finished);
 }
 
 .pull-request__jira {
@@ -144,6 +165,19 @@ a, a:visited {
 
 .avatar__wrapper > img {
   border-radius: 50%;
+}
+
+.avatar__wrapper::after {
+  content: attr(data-login);
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  padding: 1px;
+  background-color: black;
+  color: white;
+  font-size: 0.4rem;
+  text-transform: uppercase;
+  transform: translateX(-50%);
 }
 
 .avatar__overlay {

@@ -21,10 +21,12 @@ title: 'Sloths'
 
     {% for category in githubActive %}
       {% if category.prs.length > 0 %}
-        <h2>{{ category.title }}</h2>
+        <h2 class="category-title" data-classification="{{ category.classification }}">{{ category.title }}</h2>
 
         {% for pr in category.prs %}
-          <div class="avatar__wrapper">{% avatar pr.author %}</div>
+          <div class="avatar__wrapper" data-login="{{ pr.author.name | nickname }}">
+            {% avatar pr.author %}
+          </div>
 
           <div class="pull-request__jira">
             <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
@@ -43,19 +45,27 @@ title: 'Sloths'
 
           <div class="pull-request__small">{{ pr.lastLabelChange | timedist }}</div>
 
-          <div class="avatar__wrapper">
-            {% avatar pr.assigned[0] %}
-            {% if category.showReviewStatus and pr.assigned[0].hasReviewed %}
-              <div class="avatar__overlay">✔</div>
-            {% endif %}
-          </div>
+          {% if pr.assigned[0] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[0].name | nickname }}">
+              {% avatar pr.assigned[0] %}
+              {% if category.showReviewStatus and pr.assigned[0].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
 
-          <div class="avatar__wrapper">
-            {% avatar pr.assigned[1] %}
-            {% if category.showReviewStatus and pr.assigned[1].hasReviewed %}
-              <div class="avatar__overlay">✔</div>
-            {% endif %}
-          </div>
+          {% if pr.assigned[1] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[1].name | nickname }}">
+              {% avatar pr.assigned[1] %}
+              {% if category.showReviewStatus and pr.assigned[1].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
         {% endfor %}
       {% endif %}
     {% endfor %}

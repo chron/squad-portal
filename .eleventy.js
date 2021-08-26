@@ -2,6 +2,7 @@ require('dotenv').config();
 const formatDistance = require('date-fns/formatDistance');
 const parseISO = require('date-fns/parseISO');
 const Image = require("@11ty/eleventy-img");
+const USERS = require('./users');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('css');
@@ -17,10 +18,17 @@ module.exports = function(eleventyConfig) {
     return formatDistance(parseISO(input), new Date)
   });
 
+  eleventyConfig.addFilter('nickname', function(githubLogin) {
+    return USERS.find(u => u.githubLogin === githubLogin)?.nickname || githubLogin;
+  });
+
   eleventyConfig.addNunjucksAsyncShortcode('avatar', async function(input) {
     if (!input) { return ''; }
 
-    const metadata = await Image(input.avatar, {
+    // input.avatar is the URL of their github avatar, but those are kinda boring?
+    const avatarUrl = `https://avatars.dicebear.com/api/bottts/${input.name}.svg`;
+
+    const metadata = await Image(avatarUrl, {
       widths: [80],
       formats: ['png'],
       outputDir: './_site/img/',
@@ -28,9 +36,10 @@ module.exports = function(eleventyConfig) {
 
     const imageAttributes = {
       alt: `Avatar of ${input.name}`,
+      title: input.name,
       sizes: [40],
-      loading: "lazy",
-      decoding: "async",
+      loading: 'lazy',
+      decoding: 'async',
     };
 
     return Image.generateHTML(metadata, imageAttributes);
