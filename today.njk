@@ -71,6 +71,17 @@ title: 'Sloths'
           {% else %}
             <div></div>
           {% endif %}
+
+          {% if pr.assigned[2] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[2].name | nickname }}">
+              {% avatar pr.assigned[2] %}
+              {% if category.showReviewStatus and pr.assigned[2].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
         {% endfor %}
       {% endif %}
     {% endfor %}

@@ -117,13 +117,13 @@ a, a:visited {
 .pull-request-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 40px 80px 1fr max-content max-content 40px 40px;
+  grid-template-columns: 40px max-content 1fr max-content max-content repeat(3, 40px);
   align-items: center;
   gap: 1rem;
 }
 
 .pull-request-grid > .category-title {
-  grid-column: span 7;
+  grid-column: 1 / -1;
   margin-top: 2rem;
 }
 
