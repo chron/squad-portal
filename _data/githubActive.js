@@ -122,7 +122,7 @@ module.exports = async function() {
     },
     {
       title: 'Pull requests that are being tested',
-      prs: prs.filter(pr => ((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0),
+      prs: prs.filter(pr => !pr.labels.includes(READY_TO_REVIEW) && (((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0)),
       classification: 'test',
     },
     {
