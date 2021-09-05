@@ -14,7 +14,7 @@ layout: layout
 
       {% for score in scores %}
         <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
-        <div class="section name" data-position="{{loop.index}}">{{ score.user }}</div>
+        <div class="section name" data-position="{{loop.index}}">{{ score.user | nickname }}</div>
         <div class="section score" data-position="{{loop.index}}">{{ score.reviewCount }}</div>
         <div class="section score" data-position="{{loop.index}}">{{ score.prCount }}</div>
       {% endfor %}
