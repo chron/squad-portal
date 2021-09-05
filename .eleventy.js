@@ -25,8 +25,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addNunjucksAsyncShortcode('avatar', async function(input) {
     if (!input) { return ''; }
 
+    const userName = input.name || input.user;
     // input.avatar is the URL of their github avatar, but those are kinda boring?
-    const avatarUrl = `https://avatars.dicebear.com/api/bottts/${input.name}.svg`;
+    const avatarUrl = `https://avatars.dicebear.com/api/bottts/${userName}.svg`;
 
     const metadata = await Image(avatarUrl, {
       widths: [80],
@@ -35,8 +36,8 @@ module.exports = function(eleventyConfig) {
     });
 
     const imageAttributes = {
-      alt: `Avatar of ${input.name}`,
-      title: input.name,
+      alt: `Avatar of ${userName}`,
+      title: userName,
       sizes: [40],
       loading: 'lazy',
       decoding: 'async',
