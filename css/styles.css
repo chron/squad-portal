@@ -19,6 +19,51 @@ main {
   padding: 1rem;
 }
 
+nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+}
+
+nav > a {
+  text-decoration: none;
+  font-weight: normal;
+}
+
+nav > a.active {
+  font-weight: bold;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.expander {
+  flex-grow: 1;
+}
+
+.secondary {
+  color: #9CA3AF;
+}
+
+input[type="submit"] {
+  all: initial;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  filter:hue-rotate(90deg);
+  transform: scale(1.05);
+  transition: 0.2s transform;
+}
+
+input[type="submit"]:active {
+  filter:hue-rotate(120deg);
+}
+
 .main--leaderboard {
   max-width: 60ch;
 }

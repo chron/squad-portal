@@ -1,3 +1,9 @@
+---
+links: [
+  { title: 'Leaderboard', url: '/' },
+  { title: 'Today', url: '/today/' },
+]
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +24,24 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
+  <nav>
+    <div class="logo">🦥</div>
+
+    {% for link in links %}
+      <a href="{{ link.url }}" class="{% if page.url == link.url %}active{% endif %}">
+        {{ link.title }}
+      </a>
+    {% endfor %}
+
+    <div class="expander"></div>
+
+    <div class="secondary">Last updated {{ site.buildTime.toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' }) }} </div>
+
+    <form action="/.netlify/functions/refresh">
+      <input type="submit" value="🔄" />
+    </form>
+  </nav>
+
   {{ content | safe }}
 </body>
 </html>
