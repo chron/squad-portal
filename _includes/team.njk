@@ -1,0 +1,14 @@
+---
+layout: 'layout'
+---
+<nav class="nav--invert">
+  {% for u in users %}
+    {% if u.current %}
+      <a href="/team/{{ u.nickname | lower }}" class="{{ 'active' if u.nickname.toLowerCase() in page.url }}">
+        {{ u.nickname }}
+      </a>
+    {% endif %}
+  {% endfor %}
+</nav>
+
+{{ content | safe }}

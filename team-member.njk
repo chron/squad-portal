@@ -1,0 +1,21 @@
+---js
+{
+layout: 'team',
+pagination: {
+  data: 'users',
+  size: 1,
+  alias: 'user',
+  before: data => data.filter(u => u.current),
+},
+permalink: "team/{{ user.nickname | lower }}/",
+}
+---
+
+<div class="member-hero">
+  <h1>{{ user.nickname }}</h1>
+  <span class="tagline">{{ user.tagline | safe }}</span>
+</div>
+
+<main>
+  <pre>TODO: content here</pre>
+</main>

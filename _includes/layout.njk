@@ -1,7 +1,8 @@
 ---
 links: [
-  { title: 'Leaderboard', url: '/' },
-  { title: 'Today', url: '/today/' },
+  { title: 'Leaderboard', url: '/', exact: true },
+  { title: 'Today', url: '/today/', exact: true },
+  { title: 'The team', url: '/team/' },
 ]
 ---
 <!DOCTYPE html>
@@ -28,7 +29,7 @@ links: [
     <div class="logo">🦥</div>
 
     {% for link in links %}
-      <a href="{{ link.url }}" class="{% if page.url == link.url %}active{% endif %}">
+      <a href="{{ link.url }}" class="{{ 'active' if link.exact and page.url === link.url }} {{ 'active' if not link.exact and page.url.startsWith(link.url) }}">
         {{ link.title }}
       </a>
     {% endfor %}

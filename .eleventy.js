@@ -2,7 +2,7 @@ require('dotenv').config();
 const formatDistance = require('date-fns/formatDistance');
 const parseISO = require('date-fns/parseISO');
 const Image = require("@11ty/eleventy-img");
-const USERS = require('./users');
+const USERS = require('./_data/users'); // TODO: better way to load this?
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('css');

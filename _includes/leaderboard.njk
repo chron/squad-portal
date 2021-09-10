@@ -18,7 +18,11 @@ layout: layout
         <div class="section section--avatar" data-position="{{loop.index}}">
           {% avatar score %}
         </div>
-        <div class="section name" data-position="{{loop.index}}">{{ score.user | nickname }}</div>
+        <div class="section name" data-position="{{loop.index}}">
+          <a href="/{{ score.user | nickname | lower }}">
+            {{ score.user | nickname }}
+          </a>
+        </div>
         <div class="section score" data-position="{{loop.index}}">{{ score.reviewCount }}</div>
         <div class="section score" data-position="{{loop.index}}">{{ score.prCount }}</div>
       {% endfor %}

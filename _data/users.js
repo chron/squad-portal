@@ -2,6 +2,7 @@ module.exports = [
   {
     githubLogin: 'libbyschuknight',
     nickname: 'Libby',
+    current: true,
   },
   {
     githubLogin: 'louisa-storypark',
@@ -10,26 +11,31 @@ module.exports = [
   {
     githubLogin: 'marielleaurabelle',
     nickname: 'Marielle',
+    tagline: 'The queen of emoji reactions <em>👸🏻</em>',
+    current: true,
   },
   {
     githubLogin: 'chron',
     nickname: 'Paul',
+    current: true,
   },
   {
     githubLogin: 'timothyjohn2015',
     nickname: 'Tim',
+    current: true,
   },
   {
     githubLogin: 'willsmart',
     nickname: 'Will',
-  },
-  {
-    githubLogin: 'fourseven',
-    nickname: 'Mathew',
+    current: true,
   },
   {
     githubLogin: 'BecsController',
     nickname: 'Becs',
+  },
+  {
+    githubLogin: 'fourseven',
+    nickname: 'Mathew',
   },
   {
     githubLogin: 'zugolosian',
