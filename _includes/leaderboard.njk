@@ -19,7 +19,7 @@ layout: layout
           {% avatar score %}
         </div>
         <div class="section name" data-position="{{loop.index}}">
-          <a href="/{{ score.user | nickname | lower }}">
+          <a href="/team/{{ score.user | nickname | lower }}">
             {{ score.user | nickname }}
           </a>
         </div>

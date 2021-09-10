@@ -12,11 +12,13 @@ body {
   --color-review: #93C5FD;
   --color-test: #FDE68A;
   --color-finished: #34D399;
+
+  --content-width: 100ch;
 }
 
 main {
   width: 100%;
-  max-width: 100ch;
+  max-width: var(--content-width);
   padding: 1rem;
 }
 
@@ -249,26 +251,29 @@ a, a:visited {
 }
 
 .member-hero {
-  position: relative;
-  padding-top: 2rem;
   width: 100vw;
   background-color: teal;
   color: white;
   overflow: hidden;
 }
 
-.member-hero > h1 {
+.member-hero__content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.member-hero h1 {
   font-size: 6rem;
   line-height: 0.76;
 
   animation: 0.2s slideUp;
 }
 
-.member-hero > .tagline {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
+.member-hero .tagline {
   animation: 0.2s slideLeft ease-out;
 }
 

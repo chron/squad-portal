@@ -12,8 +12,10 @@ permalink: "team/{{ user.nickname | lower }}/",
 ---
 
 <div class="member-hero">
-  <h1>{{ user.nickname }}</h1>
-  <span class="tagline">{{ user.tagline | safe }}</span>
+  <div class="member-hero__content">
+    <h1>{{ user.nickname }}</h1>
+    <span class="tagline">{{ user.tagline | safe }}</span>
+  </div>
 </div>
 
 <main>
