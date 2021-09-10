@@ -24,9 +24,13 @@ title: 'Sloths'
           </div>
 
           <div class="pull-request__jira">
-            <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
+            {% if pr.jira.startsWith('SLOW-') %}
+              <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
+                {{ pr.jira }}
+              </a>
+            {% else %}
               {{ pr.jira }}
-            </a>
+            {% endif %}
           </div>
 
           <div>
