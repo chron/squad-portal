@@ -48,7 +48,7 @@ nav > a.active {
 .logo {
   font-size: 2rem;
   user-select: none;
-
+  cursor: initial;
 }
 
 .expander {
