@@ -19,7 +19,7 @@ module.exports = [
     current: true,
     emotions: {
       positive: ['connected', 'supported', 'appreciated', 'empathetic', 'helpful'],
-      negative: ['overwhelmed', 'incapable', 'intimidated', 'disheartened'],
+      negative: ['overwhelmed', 'incapable', 'intimidated', 'disheartened', 'guarded'],
     },
   },
   {
