@@ -19,5 +19,19 @@ permalink: "team/{{ user.nickname | lower }}/",
 </div>
 
 <main>
-  <pre>TODO: content here</pre>
+  <h2>Favourite postive emotions</h2>
+
+  <ul class="emotion-list">
+    {% for emotion in user.emotions.positive %}
+      <li class="emotion emotion--positive">{{ emotion }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Least favourite negative emotions</h2>
+
+  <ul class="emotion-list">
+    {% for emotion in user.emotions.negative %}
+      <li class="emotion emotion--negative">{{ emotion }}</li>
+    {% endfor %}
+  </ul>
 </main>

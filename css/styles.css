@@ -13,6 +13,9 @@ body {
   --color-test: #FDE68A;
   --color-finished: #34D399;
 
+  --color-positive: #34D399;
+  --color-negative: #FBBF24;
+
   --content-width: 100ch;
 }
 
@@ -261,9 +264,10 @@ a, a:visited {
 }
 
 .member-hero {
-  width: 100vw;
+  width: 100%;
   background-color: teal;
   color: white;
+  flex-shrink: 0;
   overflow: hidden;
 }
 
@@ -293,6 +297,26 @@ a, a:visited {
   animation: 0.3s pulse ease-out 0.2s;
 }
 
+.emotion-list {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.emotion {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.3rem;
+}
+
+.emotion--negative {
+  background-color: var(--color-negative);
+}
+
+.emotion--positive {
+  background-color: var(--color-positive);
+}
+
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
@@ -317,3 +341,4 @@ a, a:visited {
   20% { transform: scale(1); }
   100% { transform: scale(1); }
 }
+\
