@@ -73,4 +73,8 @@ module.exports = [
     githubLogin: 'AaronThornton00',
     nickname: 'Aaron',
   },
+  {
+    githubLogin: 'sandemchad',
+    nickname: 'Chad',
+  },
 ]
