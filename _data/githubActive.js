@@ -45,6 +45,22 @@ const query = `
               }
             }
           }
+          commits(last: 1) {
+            nodes {
+              commit {
+                status {
+                  state
+
+                  contexts {
+                    state
+                    targetUrl
+                    description
+                    context
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -91,6 +107,7 @@ module.exports = async function() {
       labels: node.labels.nodes.map(n => n.name),
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
+      status: node.commits.nodes[0]?.commit.status?.state.toLowerCase(),
     };
   });
 

@@ -25,6 +25,10 @@ layout: 'layout'
               <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
             {% endif %}
 
+            {% if pr.status !== 'success' %}
+              <span class="merge-conflict" title="CI failure!">🚨 </span>
+            {% endif %}
+
             {% if pr.labels.includes('Before Merge TODO') %}
               <span class="merge-conflict" title="This PR has a Before merge TODO">🔀 </span>
             {% endif %}
