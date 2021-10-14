@@ -1,0 +1,75 @@
+---
+layout: 'layout'
+---
+<main>
+  <h1>{{ title }}</h1>
+
+  <div class="pull-request-grid">
+    {% for category in githubActiveFiltered %}
+      {% if category.prs.length > 0 %}
+        <h2 class="category-title" data-classification="{{ category.classification }}">{{ category.title }}</h2>
+
+        {% for pr in category.prs %}
+          <div class="avatar__wrapper" data-login="{{ pr.author.name | nickname }}">
+            {% avatar pr.author %}
+          </div>
+
+          <div class="pull-request__jira">
+            <a href="{{ site.jiraBaseUrl }}{{ pr.jira }}" target="_blank" rel="noopener noreferrer">
+              {{ pr.jira }}
+            </a>
+          </div>
+
+          <div>
+            {% if pr.labels.includes('Merge conflict') %}
+              <span class="merge-conflict" title="Merge conflict!">⚠️ </span>
+            {% endif %}
+
+            {% if pr.labels.includes('Before Merge TODO') %}
+              <span class="merge-conflict" title="This PR has a Before merge TODO">🔀 </span>
+            {% endif %}
+
+            <a href="{{ pr.url }}" target="_blank" rel="noopener noreferrer">{{ pr.title }}</a>
+          </div>
+
+          <div class="pull-request__small">{{ pr.size }}</div>
+
+          <div class="pull-request__small">{{ pr.lastLabelChange | timedist }}</div>
+
+          {% if pr.assigned[0] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[0].name | nickname }}">
+              {% avatar pr.assigned[0] %}
+              {% if category.showReviewStatus and pr.assigned[0].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
+
+          {% if pr.assigned[1] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[1].name | nickname }}">
+              {% avatar pr.assigned[1] %}
+              {% if category.showReviewStatus and pr.assigned[1].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
+
+          {% if pr.assigned[2] %}
+            <div class="avatar__wrapper" data-login="{{ pr.assigned[2].name | nickname }}">
+              {% avatar pr.assigned[2] %}
+              {% if category.showReviewStatus and pr.assigned[2].hasReviewed %}
+                <div class="avatar__overlay">✔</div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div></div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</main>
