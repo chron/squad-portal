@@ -29,5 +29,19 @@ module.exports = [
       { user: 'fourseven', reviewCount: 3, prCount: 1 },
       { user: 'AlexQuinlivan', reviewCount: 1, prCount: 1 },
     ],
+  },
+  {
+    year: 2021,
+    cycle: 5,
+    startDate: '2021-09-27',
+    endDate: '2021-11-05',
+    scores: [
+      { user: 'chron', reviewCount: 31, prCount: 17 },
+      { user: 'willsmart', reviewCount: 22, prCount: 9 },
+      { user: 'libbyschuknight', reviewCount: 20, prCount: 4 },
+      { user: 'timothyjohn2015', reviewCount: 17, prCount: 26 },
+      { user: 'marielleaurabelle', reviewCount: 16, prCount: 5 },
+      { user: 'AlexQuinlivan', reviewCount: 0, prCount: 1 },
+    ],
   }
-]
+];

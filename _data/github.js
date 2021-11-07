@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr created:>2021-09-26 NOT combo in:title SLOW- OR GIRA-", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr created:>2021-11-22 NOT combo in:title SLOW- OR GIRA-", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           author {

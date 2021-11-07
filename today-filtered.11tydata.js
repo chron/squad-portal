@@ -5,7 +5,6 @@ module.exports = {
     },
     githubActiveFiltered: (data) => {
       return data.githubActive.map((category) => {
-        console.log(category);
         return {
           ...category,
           prs: category.prs.filter(pr => {
