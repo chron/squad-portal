@@ -3,14 +3,16 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr created:>2021-11-22 NOT combo in:title SLOW- OR GIRA-", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr review:approved", type: ISSUE, last: 100) {
       nodes {
         ... on PullRequest {
+          createdAt
           author {
             login
           }
           reviews(states: APPROVED, first: 5) {
             nodes {
+              createdAt
               author {
                 login
               }
@@ -22,6 +24,7 @@ const query = `
   }
 `;
 
+const CUTOFF = new Date('2011-11-07');
 module.exports = async function scores() {
   const githubResponse = await Cache('https://api.github.com/graphql', {
     duration: "1h",
@@ -37,9 +40,19 @@ module.exports = async function scores() {
     }
   });
 
-  const prAuthors = githubResponse.data.search.nodes.map(node => node.author.login);
-  const uniqueAuthors = [...new Set(prAuthors)];
-  const allReviews = githubResponse.data.search.nodes.flatMap(node => node.reviews.nodes.map(innerNode => innerNode.author.login));
+  const prAuthors = githubResponse.data.search.nodes.map(node => {
+    if (Date.parse(node.createdAt) < CUTOFF) return null;
+    return node.author.login;
+  }).filter(Boolean);
+
+  const allReviews = githubResponse.data.search.nodes.flatMap(node => {
+    return node.reviews.nodes.map(innerNode => {
+      if (Date.parse(innerNode.createdAt) < CUTOFF) return null;
+      return innerNode.author.login;
+    }).filter(Boolean);
+  });
+
+  const uniqueAuthors = [...new Set(prAuthors.concat(allReviews))];
 
   const reviewCounts = allReviews.reduce((accum, username) => {
     return {
