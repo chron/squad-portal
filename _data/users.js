@@ -11,12 +11,12 @@ module.exports = [
   {
     githubLogin: 'louisa-storypark',
     nickname: 'Louisa',
+    current: true,
   },
   {
     githubLogin: 'marielleaurabelle',
     nickname: 'Marielle',
     tagline: 'The queen of emoji reactions <em>👸🏻</em>',
-    current: true,
     emotions: {
       positive: ['connected', 'supported', 'appreciated', 'empathetic', 'helpful'],
       negative: ['overwhelmed', 'incapable', 'intimidated', 'disheartened', 'guarded'],
@@ -43,7 +43,6 @@ module.exports = [
   {
     githubLogin: 'willsmart',
     nickname: 'Will',
-    current: true,
     emotions: {
       positive: ['joy', 'appreciated', 'curious', 'optimistic', 'brave'],
       negative: ['uncaring', 'guarded', 'overwhelmed', 'powerless', 'paralysed'],
@@ -76,6 +75,7 @@ module.exports = [
   {
     githubLogin: 'sandemchad',
     nickname: 'Chad',
+    current: true,
   },
   {
     githubLogin: 'Rob-Bee-Neilson',
