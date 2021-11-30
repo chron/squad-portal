@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr is:open NOT combo in:title SLOW- OR GIRA-", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr is:open label:dingoes NOT combo", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           title
@@ -73,10 +73,20 @@ const READY_TO_TEST = '3. Ready for testing';
 const READY_TO_RELEASE = '6. Ready for deploy to prod';
 const ON_STAGING = '5. On StagingAU';
 const COMBO = 'Combo';
-//const MERGE_CONFLICT = 'Merge conflict';
+
+function prState(pr) {
+  if (pr.labels.includes(EARLY_FEEDBACK)) return 'early_feedback';
+  if (pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2) return 'needs_reviewers';
+  if (pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2) return 'being_reviewed';
+  if (pr.labels.includes(READY_TO_TEST) && !(pr.labels.includes(ON_STAGING) || pr.labels.includes(COMBO))) return 'waiting_for_staging_deploy';
+  if (!pr.labels.includes(READY_TO_REVIEW) && (((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0)) return 'in_test';
+  if (pr.labels.includes(READY_TO_RELEASE)) return 'ready_for_release';
+
+  return 'unknown';
+}
 
 module.exports = async function() {
-  const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
+  const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActiveDingoes', {
     duration: "1h",
     type: 'json',
     fetchOptions: {
@@ -97,7 +107,7 @@ module.exports = async function() {
   const prs = githubResponse.data.search.nodes.map((node) => {
     const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA)[- ]\w+)\]?\s*(?:[:-]\s*)?(.+)$/i);
 
-    return {
+    const pr = {
       title: titleMatch ? titleMatch[2] : node.title,
       url: node.url,
       jira: titleMatch && titleMatch[1].toUpperCase().replace(/\s+/, '-'),
@@ -109,43 +119,12 @@ module.exports = async function() {
       size: `+${node.additions} -${node.deletions}`,
       status: node.commits.nodes[0]?.commit.status?.state.toLowerCase(),
     };
+
+    return {
+      ...pr,
+      state: prState(pr),
+    };
   });
 
-  return [
-    {
-      title: 'Pull requests that could use some early feedback',
-      prs: prs.filter(pr => pr.labels.includes(EARLY_FEEDBACK)),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    {
-      title: 'Pull requests that need more reviewers',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    {
-      title: 'Pull requests that are being reviewed',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    // TODO: PRs that have changes requested? Right now we only show accepted reviews
-    {
-      title: 'Pull requests in test that haven\'t made it to staging',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !(pr.labels.includes(ON_STAGING) || pr.labels.includes(COMBO))),
-      classification: 'test',
-    },
-    {
-      title: 'Pull requests that are being tested',
-      prs: prs.filter(pr => !pr.labels.includes(READY_TO_REVIEW) && (((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0)),
-      classification: 'test',
-    },
-    {
-      title: 'Ready to go out in next release',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_RELEASE)),
-      classification: 'finished',
-    },
-    // other?
-  ];
+  return prs;
 }
