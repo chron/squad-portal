@@ -75,6 +75,16 @@ title: PRs the Dingoes might care about
       {% else %}
         <div></div>
       {% endif %}
+
+      {% if pr.notes %}
+        <div class="full-row-label">
+          Notes
+        </div>
+
+        <div class="full-row-with-label">
+          {{ pr.notes }}
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
 </main>

@@ -7,6 +7,7 @@ const query = `
       nodes {
         ... on PullRequest {
           title
+          bodyText
           url
           createdAt
           additions
@@ -106,6 +107,7 @@ module.exports = async function() {
 
   const prs = githubResponse.data.search.nodes.map((node) => {
     const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA)[- ]\w+)\]?\s*(?:[:-]\s*)?(.+)$/i);
+    const noteMatch = node.bodyText.match(/\[dingoes\](.+?)\[\/dingoes\]/i);
 
     const pr = {
       title: titleMatch ? titleMatch[2] : node.title,
@@ -118,6 +120,7 @@ module.exports = async function() {
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
       status: node.commits.nodes[0]?.commit.status?.state.toLowerCase(),
+      notes: noteMatch ? noteMatch[1] : null,
     };
 
     return {
