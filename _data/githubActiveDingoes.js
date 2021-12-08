@@ -3,13 +3,14 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr is:open label:dingoes NOT combo", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr label:dingoes NOT combo", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           title
           bodyText
           url
           createdAt
+          merged
           additions
           deletions
           labels(first: 10) {
@@ -76,6 +77,7 @@ const ON_STAGING = '5. On StagingAU';
 const COMBO = 'Combo';
 
 function prState(pr) {
+  if (pr.merged) return 'released';
   if (pr.labels.includes(EARLY_FEEDBACK)) return 'early_feedback';
   if (pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2) return 'needs_reviewers';
   if (pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2) return 'being_reviewed';
