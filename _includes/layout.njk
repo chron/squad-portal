@@ -27,7 +27,7 @@ links: [
 </head>
 <body>
   <nav>
-    <div class="logo">🦥</div>
+    <div class="logo">🐦</div>
 
     {% for link in links %}
       <a href="{{ link.url }}" class="{{ 'active' if link.exact and page.url === link.url }} {{ 'active' if not link.exact and page.url.startsWith(link.url) }}">
