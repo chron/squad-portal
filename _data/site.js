@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Sloths Review Leaderboard',
+  title: 'Weka Squad',
   jiraBaseUrl: 'https://storypark.atlassian.net/browse/',
   buildTime: new Date(),
 };
