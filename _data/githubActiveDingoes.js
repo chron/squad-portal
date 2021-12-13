@@ -108,7 +108,7 @@ module.exports = async function() {
   }
 
   const prs = githubResponse.data.search.nodes.map((node) => {
-    const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA)[- ]\S+?)\]?\s*(?:[:-]\s*)?(.+)$/i);
+    const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
     const noteMatch = node.bodyText.match(/\[dingoes\](.+?)\[\/dingoes\]/i);
 
     const pr = {
@@ -121,6 +121,7 @@ module.exports = async function() {
       labels: node.labels.nodes.map(n => n.name),
       lastLabelChange: node.timelineItems.nodes[0]?.createdAt,
       size: `+${node.additions} -${node.deletions}`,
+      merged: node.merged,
       status: node.commits.nodes[0]?.commit.status?.state.toLowerCase(),
       notes: noteMatch ? noteMatch[1] : null,
     };
