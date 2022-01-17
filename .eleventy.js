@@ -26,6 +26,7 @@ module.exports = function(eleventyConfig) {
     if (!input) { return ''; }
 
     const userName = input.name || input.user;
+
     // input.avatar is the URL of their github avatar, but those are kinda boring?
     const avatarUrl = `https://avatars.dicebear.com/api/bottts/${userName}.svg`;
 

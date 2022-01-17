@@ -1,0 +1,28 @@
+---
+layout: layout
+title: 'Weka Support Roster'
+subtitle: '2022 Cycle 1 (Proposed)'
+---
+
+<main class="main--leaderboard">
+  <h1>{{ title }}</h1>
+  <h2>{{ subtitle }}</h2>
+
+  <div class="roster-grid">
+    {% for entry in roster %}
+      <div class="section name">
+        {{ entry.week }}
+      </div>
+
+      <div class="section name">
+        <div class="avatar__wrapper" data-login="{{ entry.user | nickname }}">
+          {% avatar entry %}
+        </div>
+      </div>
+
+      <div class="section name">
+        {{ entry.user | nickname }}
+      </div>
+    {% endfor %}
+  </div>
+</main>

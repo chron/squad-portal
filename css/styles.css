@@ -145,7 +145,7 @@ a, a:visited {
   font-variant-numeric: tabular-nums;
 }
 
-.section--avatar > img {
+.section--avatar img {
   width: 50px;
   height: 50px;
 }
@@ -191,6 +191,15 @@ a, a:visited {
   grid-template-columns: 40px max-content 1fr max-content max-content repeat(3, 40px);
   align-items: center;
   gap: 1rem;
+}
+
+.roster-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .full-row-label {
@@ -241,6 +250,8 @@ a, a:visited {
 
 .avatar__wrapper {
   position: relative;
+  width: 40px;
+  height: 40px;
 }
 
 .avatar__wrapper > img {
