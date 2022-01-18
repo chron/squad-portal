@@ -10,7 +10,7 @@ title: PRs the Dingoes might care about
   <div class="pull-request-grid">
     {% for pr in githubActiveDingoes %}
       <div class="avatar__wrapper" data-login="{{ pr.author.name | nickname }}">
-        {% avatar pr.author %}
+        {% avatar pr.author.name %}
       </div>
 
       <div class="pull-request__jira">
@@ -45,7 +45,7 @@ title: PRs the Dingoes might care about
 
       {% if pr.assigned[0] %}
         <div class="avatar__wrapper" data-login="{{ pr.assigned[0].name | nickname }}">
-          {% avatar pr.assigned[0] %}
+          {% avatar pr.assigned[0].name %}
           {% if category.showReviewStatus and pr.assigned[0].hasReviewed %}
             <div class="avatar__overlay">✔</div>
           {% endif %}
@@ -56,7 +56,7 @@ title: PRs the Dingoes might care about
 
       {% if pr.assigned[1] %}
         <div class="avatar__wrapper" data-login="{{ pr.assigned[1].name | nickname }}">
-          {% avatar pr.assigned[1] %}
+          {% avatar pr.assigned[1].name %}
           {% if category.showReviewStatus and pr.assigned[1].hasReviewed %}
             <div class="avatar__overlay">✔</div>
           {% endif %}
@@ -67,7 +67,7 @@ title: PRs the Dingoes might care about
 
       {% if pr.assigned[2] %}
         <div class="avatar__wrapper" data-login="{{ pr.assigned[2].name | nickname }}">
-          {% avatar pr.assigned[2] %}
+          {% avatar pr.assigned[2].name %}
           {% if category.showReviewStatus and pr.assigned[2].hasReviewed %}
             <div class="avatar__overlay">✔</div>
           {% endif %}

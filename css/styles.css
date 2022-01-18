@@ -117,6 +117,10 @@ a, a:visited {
   background-color: #E5E7EB;
 }
 
+.section--padded {
+  padding: 0 0.5rem;
+}
+
 [data-position="1"] {
   background-color: #FBBF24;
 }
@@ -196,7 +200,7 @@ a, a:visited {
 .roster-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: max-content max-content 1fr;
+  grid-template-columns: max-content max-content max-content 1fr max-content 1fr;
   align-items: center;
   gap: 1rem;
   margin: 2rem 0;

@@ -9,14 +9,14 @@ layout: layout
     <div class="leaderboard">
       <div class="header">position</div>
       <div class="header">avatar</div>
-      <div class="header">github username</div>
+      <div class="header">name</div>
       <div class="header">reviews</div>
       <div class="header">PRs</div>
 
       {% for score in scores %}
         <div class="section position" data-position="{{loop.index}}">{{ loop.index }}</div>
         <div class="section section--avatar" data-position="{{loop.index}}">
-          {% avatar score %}
+          {% avatar score.user %}
         </div>
         <div class="section name" data-position="{{loop.index}}">
           <a href="/team/{{ score.user | nickname | lower }}">

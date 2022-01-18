@@ -4,24 +4,45 @@ title: 'Weka Support Roster'
 subtitle: '2022 Cycle 1 (Proposed)'
 ---
 
-<main class="main--leaderboard">
+<main>
   <h1>{{ title }}</h1>
   <h2>{{ subtitle }}</h2>
 
   <div class="roster-grid">
+    <div class="header">week</div>
+    <div class="header">dates</div>
+    <div class="header"></div>
+    <div class="header">main</div>
+    <div class="header"></div>
+    <div class="header">backup</div>
+
     {% for entry in roster %}
-      <div class="section name">
-        {{ entry.week }}
+      <div class="section section--padded">
+        {{ entry.title }}
       </div>
 
-      <div class="section name">
-        <div class="avatar__wrapper" data-login="{{ entry.user | nickname }}">
-          {% avatar entry %}
+      <div class="section section--padded">
+        {{ entry.dates }}
+      </div>
+
+      <div class="section section--padded">
+        <div class="avatar__wrapper" data-login="{{ entry.main | nickname }}">
+          {% avatar entry.main %}
         </div>
       </div>
 
       <div class="section name">
-        {{ entry.user | nickname }}
+        {{ entry.main | nickname }}
+      </div>
+
+      <div class="section section--padded">
+        <div class="avatar__wrapper" data-login="{{ entry.backup | nickname }}">
+          {% avatar entry.backup %}
+        </div>
+      </div>
+
+      <div class="section name">
+        {{ entry.backup | nickname }}
       </div>
     {% endfor %}
   </div>
