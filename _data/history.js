@@ -43,5 +43,21 @@ module.exports = [
       { user: 'marielleaurabelle', reviewCount: 16, prCount: 5 },
       { user: 'AlexQuinlivan', reviewCount: 0, prCount: 1 },
     ],
+  },
+  {
+    year: 2021,
+    cycle: 6,
+    startDate: '2021-11-29',
+    endDate: '2022-01-22',
+    scores: [
+      { user: 'chron', reviewCount: 22, prCount: 15 },
+      { user: 'timothyjohn2015', reviewCount: 19, prCount: 16 },
+      { user: 'libbyschuknight', reviewCount: 14, prCount: 4 },
+      { user: 'sandemchad', reviewCount: 10, prCount: 1 },
+      { user: 'fourseven', reviewCount: 7, prCount: 0 },
+      { user: 'willsmart', reviewCount: 3, prCount: 5 },
+      { user: 'AaronThornton00', reviewCount: 2, prCount: 0 },
+      { user: 'Rob-Bee-Neilson', reviewCount: 1, prCount: 0 },
+    ]
   }
 ];
