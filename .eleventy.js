@@ -1,5 +1,6 @@
 require('dotenv').config();
 const formatDistance = require('date-fns/formatDistance');
+const format = require('date-fns/format');
 const parseISO = require('date-fns/parseISO');
 const Image = require("@11ty/eleventy-img");
 const USERS = require('./_data/users'); // TODO: better way to load this?
@@ -16,6 +17,13 @@ module.exports = function(eleventyConfig) {
     if (!input) { return ''; }
 
     return formatDistance(parseISO(input), new Date)
+  });
+
+  eleventyConfig.addFilter('shortDate', function(input) {
+    console.log(input)
+    if (!input) { return ''; }
+
+    return format(parseISO(input), 'MMM d');
   });
 
   eleventyConfig.addFilter('nickname', function(githubLogin) {

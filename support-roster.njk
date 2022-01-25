@@ -1,7 +1,9 @@
----
-layout: layout
-title: 'Weka Support Roster'
-subtitle: '2022 Cycle 1 (Proposed)'
+---js
+{
+  layout: 'layout',
+  title: 'Weka Support Roster',
+  subtitle: '2022 Cycle 1 (Proposed)',
+}
 ---
 
 <main>
@@ -17,31 +19,31 @@ subtitle: '2022 Cycle 1 (Proposed)'
     <div class="header">backup</div>
 
     {% for entry in roster %}
-      <div class="section section--padded">
+      <div class="section section--padded" {% if entry.current %}data-position="1"{% endif %}>
         {{ entry.title }}
       </div>
 
-      <div class="section section--padded">
-        {{ entry.dates }}
+      <div class="section section--padded" {% if entry.current %}data-position="1"{% endif %}>
+        {{ entry.dates.start | shortDate }} – {{ entry.dates.end | shortDate }}
       </div>
 
-      <div class="section section--padded">
+      <div class="section section--padded" {% if entry.current %}data-position="1"{% endif %}>
         <div class="avatar__wrapper" data-login="{{ entry.main | nickname }}">
           {% avatar entry.main %}
         </div>
       </div>
 
-      <div class="section name">
+      <div class="section name" {% if entry.current %}data-position="1"{% endif %}>
         {{ entry.main | nickname }}
       </div>
 
-      <div class="section section--padded">
+      <div class="section section--padded" {% if entry.current %}data-position="1"{% endif %}>
         <div class="avatar__wrapper" data-login="{{ entry.backup | nickname }}">
           {% avatar entry.backup %}
         </div>
       </div>
 
-      <div class="section name">
+      <div class="section name" {% if entry.current %}data-position="1"{% endif %}>
         {{ entry.backup | nickname }}
       </div>
     {% endfor %}
