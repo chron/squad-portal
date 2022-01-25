@@ -5,7 +5,7 @@ pagination: {
   data: 'users',
   size: 1,
   alias: 'user',
-  before: data => data.filter(u => u.current),
+  before: data => data.filter(u => u.current || u.alumni),
 },
 permalink: "team/{{ user.nickname | lower }}/",
 }
@@ -19,19 +19,27 @@ permalink: "team/{{ user.nickname | lower }}/",
 </div>
 
 <main>
-  <h2>Favourite postive emotions</h2>
+  {% if user.bio %}
+    <p>{{ user.bio }}</p>
+  {% endif %}
 
-  <ul class="emotion-list">
-    {% for emotion in user.emotions.positive %}
-      <li class="emotion emotion--positive">{{ emotion }}</li>
-    {% endfor %}
-  </ul>
+  {% if user.emotions.positive %}
+    <h2>Favourite postive emotions</h2>
 
-  <h2>Least favourite negative emotions</h2>
+    <ul class="emotion-list">
+      {% for emotion in user.emotions.positive %}
+        <li class="emotion emotion--positive">{{ emotion }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-  <ul class="emotion-list">
-    {% for emotion in user.emotions.negative %}
-      <li class="emotion emotion--negative">{{ emotion }}</li>
-    {% endfor %}
-  </ul>
+  {% if user.emotions.negative %}
+    <h2>Least favourite negative emotions</h2>
+
+    <ul class="emotion-list">
+      {% for emotion in user.emotions.negative %}
+        <li class="emotion emotion--negative">{{ emotion }}</li>
+      {% endfor %}
+    </ul>
+   {% endif %}
 </main>

@@ -2,6 +2,7 @@ module.exports = [
   {
     githubLogin: 'libbyschuknight',
     nickname: 'Libby',
+    tagline: 'The Great Communicator™',
     current: true,
     emotions: {
       positive: ['supported', 'connected', 'empathetic', 'non-judgemental', 'secure'],
@@ -11,20 +12,13 @@ module.exports = [
   {
     githubLogin: 'louisa-storypark',
     nickname: 'Louisa',
+    tagline: 'Quality Assurance Goddess™ <em>🧪</em>',
     current: true,
-  },
-  {
-    githubLogin: 'marielleaurabelle',
-    nickname: 'Marielle',
-    tagline: 'The queen of emoji reactions <em>👸🏻</em>',
-    emotions: {
-      positive: ['connected', 'supported', 'appreciated', 'empathetic', 'helpful'],
-      negative: ['overwhelmed', 'incapable', 'intimidated', 'disheartened', 'guarded'],
-    },
   },
   {
     githubLogin: 'chron',
     nickname: 'Paul',
+    tagline: '<em>👁</em>👅<em>👁</em>',
     current: true,
     emotions: {
       positive: ['appreciated', 'playful', 'curious', 'empathetic', 'humble'],
@@ -34,6 +28,7 @@ module.exports = [
   {
     githubLogin: 'timothyjohn2015',
     nickname: 'Tim',
+    tagline: 'Consistently our most prolific PR author <em>🏅</em>',
     current: true,
     emotions: {
       positive: ['connected', 'supported', 'understanding', 'encouraged', 'appreciated'],
@@ -41,8 +36,26 @@ module.exports = [
     },
   },
   {
+    githubLogin: 'sandemchad',
+    nickname: 'Chad',
+    tagline: 'A bit of trouble but we keep him around <em>🦥</em>',
+    bio: '???',
+    current: true,
+  },
+  {
+    githubLogin: 'marielleaurabelle',
+    nickname: 'Marielle',
+    alumni: true,
+    tagline: 'The queen of emoji reactions <em>👸🏻</em>',
+    emotions: {
+      positive: ['connected', 'supported', 'appreciated', 'empathetic', 'helpful'],
+      negative: ['overwhelmed', 'incapable', 'intimidated', 'disheartened', 'guarded'],
+    },
+  },
+  {
     githubLogin: 'willsmart',
     nickname: 'Will',
+    alumni: true,
     emotions: {
       positive: ['joy', 'appreciated', 'curious', 'optimistic', 'brave'],
       negative: ['uncaring', 'guarded', 'overwhelmed', 'powerless', 'paralysed'],
@@ -71,11 +84,6 @@ module.exports = [
   {
     githubLogin: 'AaronThornton00',
     nickname: 'Aaron',
-  },
-  {
-    githubLogin: 'sandemchad',
-    nickname: 'Chad',
-    current: true,
   },
   {
     githubLogin: 'Rob-Bee-Neilson',

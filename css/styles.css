@@ -48,6 +48,10 @@ nav > a.active {
   font-weight: bold;
 }
 
+.spacer {
+  flex-grow: 1;
+}
+
 .logo {
   font-size: 2rem;
   user-select: none;
