@@ -1,5 +1,12 @@
 module.exports = [
   {
+    githubLogin: 'sandemchad',
+    nickname: 'Chad',
+    tagline: 'A bit of trouble but we keep him around <em>🦥</em>',
+    bio: '???',
+    current: true,
+  },
+  {
     githubLogin: 'libbyschuknight',
     nickname: 'Libby',
     tagline: 'The Great Communicator™',
@@ -10,20 +17,10 @@ module.exports = [
     },
   },
   {
-    githubLogin: 'louisa-storypark',
-    nickname: 'Louisa',
-    tagline: 'Quality Assurance Goddess™ <em>🧪</em>',
+    githubLogin: 'fourseven',
+    nickname: 'Mathew',
+    tagline: 'The OG is back in the saddle',
     current: true,
-  },
-  {
-    githubLogin: 'chron',
-    nickname: 'Paul',
-    tagline: '<em>👁</em>👅<em>👁</em>',
-    current: true,
-    emotions: {
-      positive: ['appreciated', 'playful', 'curious', 'empathetic', 'humble'],
-      negative: ['powerless', 'stuck', 'overwhelmed', 'restless', 'neglect'],
-    },
   },
   {
     githubLogin: 'timothyjohn2015',
@@ -36,11 +33,21 @@ module.exports = [
     },
   },
   {
-    githubLogin: 'sandemchad',
-    nickname: 'Chad',
-    tagline: 'A bit of trouble but we keep him around <em>🦥</em>',
-    bio: '???',
-    current: true,
+    githubLogin: 'louisa-storypark',
+    nickname: 'Louisa',
+    tagline: 'Quality Assurance Goddess™ <em>🧪</em>',
+    alumni: true,
+    bio: 'Currently on loan to Enspiral Dev Academy — watch this space!'
+  },
+  {
+    githubLogin: 'chron',
+    nickname: 'Paul',
+    tagline: '<em>👁</em>👅<em>👁</em>',
+    alumni: true,
+    emotions: {
+      positive: ['appreciated', 'playful', 'curious', 'empathetic', 'humble'],
+      negative: ['powerless', 'stuck', 'overwhelmed', 'restless', 'neglect'],
+    },
   },
   {
     githubLogin: 'marielleaurabelle',
@@ -64,10 +71,6 @@ module.exports = [
   {
     githubLogin: 'BecsController',
     nickname: 'Becs',
-  },
-  {
-    githubLogin: 'fourseven',
-    nickname: 'Mathew',
   },
   {
     githubLogin: 'zugolosian',

@@ -27,7 +27,7 @@ module.exports = [
       end: '2022-02-11',
     },
     main: 'timothyjohn2015',
-    backup: 'chron',
+    backup: 'fourseven',
   },
   {
     title: 'Cycle week 2',
@@ -36,7 +36,7 @@ module.exports = [
       end: '2022-02-18',
     },
     main: 'timothyjohn2015',
-    backup: 'chron',
+    backup: 'fourseven',
   },
   {
     title: 'Cycle week 3',
@@ -44,7 +44,7 @@ module.exports = [
       start: '2022-02-21',
       end: '2022-02-25',
     },
-    main: 'chron',
+    main: 'fourseven',
     backup: 'libbyschuknight',
   },
   {
@@ -53,7 +53,7 @@ module.exports = [
       start: '2022-02-28',
       end: '2022-03-04',
     },
-    main: 'chron',
+    main: 'fourseven',
     backup: 'libbyschuknight',
   },
   {
