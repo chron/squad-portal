@@ -1,4 +1,5 @@
 const isWithinInterval = require('date-fns/isWithinInterval');
+const endOfDay = require('date-fns/endOfDay')
 const parseISO = require('date-fns/parseISO');
 
 module.exports = [
@@ -94,5 +95,7 @@ module.exports = [
   },
 ].map(d => ({
   ...d,
-  current: isWithinInterval(new Date(), { start: parseISO(d.dates.start), end: parseISO(d.dates.end) }),
+  current: isWithinInterval(new Date(), {
+    start: parseISO(d.dates.start),
+    end: endOfDay(parseISO(d.dates.end)) }),
 }));
