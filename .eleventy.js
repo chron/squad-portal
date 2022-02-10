@@ -20,7 +20,6 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter('shortDate', function(input) {
-    console.log(input)
     if (!input) { return ''; }
 
     return format(parseISO(input), 'MMM d');

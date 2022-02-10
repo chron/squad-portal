@@ -92,4 +92,16 @@ module.exports = [
     githubLogin: 'Rob-Bee-Neilson',
     nickname: 'Robbie',
   },
+  {
+    githubLogin: 'esme-putt',
+    nickname: 'Esmé',
+  },
+  {
+    githubLogin: 'devyishstorypark',
+    nickname: 'Dev',
+  },
+  {
+    githubLogin: 'Jessenw',
+    nickname: 'Jesse',
+  },
 ]
