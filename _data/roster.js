@@ -45,8 +45,8 @@ module.exports = [
       start: '2022-02-21',
       end: '2022-02-25',
     },
-    main: 'fourseven',
-    backup: 'libbyschuknight',
+    main: 'libbyschuknight',
+    backup: 'sandemchad',
   },
   {
     title: 'Cycle week 4',
@@ -54,8 +54,8 @@ module.exports = [
       start: '2022-02-28',
       end: '2022-03-04',
     },
-    main: 'fourseven',
-    backup: 'libbyschuknight',
+    main: 'libbyschuknight',
+    backup: 'sandemchad',
   },
   {
     title: 'Cycle week 5',
@@ -63,8 +63,8 @@ module.exports = [
       start: '2022-03-07',
       end: '2022-03-11',
     },
-    main: 'libbyschuknight',
-    backup: 'sandemchad',
+    main: 'fourseven',
+    backup: 'libbyschuknight',
   },
   {
     title: 'Cycle week 6',
@@ -72,8 +72,8 @@ module.exports = [
       start: '2022-03-14',
       end: '2022-03-18',
     },
-    main: 'libbyschuknight',
-    backup: 'sandemchad',
+    main: 'fourseven',
+    backup: 'libbyschuknight',
   },
   {
     title: 'Cooldown week 1',
