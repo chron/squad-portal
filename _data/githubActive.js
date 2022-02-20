@@ -1,5 +1,4 @@
-const sortBy = require('lodash.sortby');
-const Cache = require("@11ty/eleventy-cache-assets");
+const fetch = require('node-fetch');
 
 const query = `
   query {
@@ -76,7 +75,9 @@ const COMBO = 'Combo';
 //const MERGE_CONFLICT = 'Merge conflict';
 
 module.exports = async function() {
-  const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
+  return []; // TEMP
+
+  const githubResponse = await fetch('https://api.github.com/graphql', {
     duration: "1h",
     type: 'json',
     fetchOptions: {
@@ -89,12 +90,13 @@ module.exports = async function() {
       body: JSON.stringify({ query }),
     }
   });
+  const githubJson = await githubResponse.json();
 
-  if (!githubResponse.data) {
-    console.error(githubResponse);
+  if (!githubJson.data) {
+    console.error(githubJson);
   }
 
-  const prs = githubResponse.data.search.nodes.map((node) => {
+  const prs = githubJson.data.search.nodes.map((node) => {
     const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
 
     return {

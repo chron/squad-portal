@@ -1,17 +1,13 @@
 ---
-layout: 'leaderboard'
-title: 'Weka Review Leaderboard'
+layout: 'public'
+title: 'Squad Portal'
 subtitle: '2022 Cycle 1'
 startDate: '2022-02-08'
 ---
 <div class="message">
   {# <p>Next cycle begins: {{ startDate }}</p> #}
 
-  <p>
-    View previous cycles:
-
-    {% for cycle in history | reverse %}
-      <a href="/{{ cycle.year }}/{{cycle.cycle}}">{{ cycle.year }} cycle {{ cycle.cycle }}</a>{{ ', ' if not loop.last }}
-    {% endfor %}
-  </p>
+  <form action="/.netlify/functions/login">
+    <button type="submit">Login with Github</button>
+  </form>
 </div>

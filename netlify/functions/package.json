@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "dependencies": {
+    "cookie": "^0.4.2",
     "node-fetch": "^2.6.1"
   }
 }
