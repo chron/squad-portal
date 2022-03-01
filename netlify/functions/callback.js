@@ -1,20 +1,10 @@
 const fetch = require('node-fetch');
 const cookie = require('cookie');
+const jwt = require('jsonwebtoken');
+const { createCookie } = require('./lib/cookies.js');
 
 const GITHUB_ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token';
-
-// TODO: DRY this with the one in login.js
-function getCookie(name, value, expiration) {
-  let options = {
-    httpOnly: true,
-    secure: true,
-    sameSite: "Lax",
-    path: '/',
-    maxAge: expiration,
-  };
-
-  return cookie.serialize(name, value, options)
-}
+const GITHUB_USER_ORG_URL = 'https://api.github.com/user/orgs';
 
 module.exports.handler = async function(event, context) {
   const cookies = cookie.parse(event.headers.cookie);
@@ -37,20 +27,34 @@ module.exports.handler = async function(event, context) {
     }),
   });
 
-  const token = await response.json();
+  const responseJson = await response.json();
 
-  console.log(JSON.stringify({
-    client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
-    client_secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
-    code,
-  }));
-
-  if (token.error) {
+  if (responseJson.error) {
     return {
       statusCode: 403,
       body: 'Some kinda auth error.',
     };
   }
+
+  const orgResponse = await fetch(GITHUB_USER_ORG_URL, {
+    headers: {
+      Authorization: `token ${responseJson.access_token}`,
+      Accept: 'application/json',
+    },
+  });
+  const orgJson = await orgResponse.json();
+
+  if (!orgJson.find(org => org.login === 'storypark')) {
+    return {
+      statusCode: 403,
+      body: 'Account must be part of the storypark org on Github.',
+    };
+  }
+
+  // Right now just the presence of the (signed) JWT is enough to auth a user.
+  // In future we could do more fine grained auth stuff like checking which teams
+  // a user is in, etc.
+  const token = jwt.sign({}, process.env.JWT_SECRET, { expiresIn: '1d' });
 
   return {
     statusCode: 302,
@@ -60,8 +64,8 @@ module.exports.handler = async function(event, context) {
     },
     multiValueHeaders: {
       'Set-Cookie': [
-        getCookie("_weka_oauth_token", token.auth_token, 60 * 60 * 10),
-        getCookie("_weka_oauth_csrf", "", -1),
+        createCookie("_weka_oauth_token", token, 60 * 60 * 24),
+        createCookie("_weka_oauth_csrf", "", -1),
       ]
     },
   }
