@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "dependencies": {
+    "cookie": "^0.4.2",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1"
   }
 }

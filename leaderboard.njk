@@ -1,0 +1,19 @@
+---
+layout: 'leaderboard'
+title: 'Weka Review Leaderboard'
+subtitle: '2022 Cycle 1'
+startDate: '2022-02-08'
+permalink:
+  serverless: '/leaderboard'
+---
+<div class="message">
+  {# <p>Next cycle begins: {{ startDate }}</p> #}
+
+  <p>
+    View previous cycles:
+
+    {% for cycle in history | reverse %}
+      <a href="/{{ cycle.year }}/{{cycle.cycle}}">{{ cycle.year }} cycle {{ cycle.cycle }}</a>{{ ', ' if not loop.last }}
+    {% endfor %}
+  </p>
+</div>

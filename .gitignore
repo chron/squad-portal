@@ -3,5 +3,9 @@ _site
 .env
 .cache
 
+# Eleventy serverless autogen stuff
+netlify/functions/serverless/**
+!netlify/functions/serverless/index.js
+
 # Local Netlify folder
 .netlify

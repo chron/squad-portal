@@ -4,10 +4,23 @@
 
 Production site is at [https://weka.digital](https://weka.digital).
 
-Dev setup:
+### Environment variables
+
+If you don't connect your local de site to Netlify, you'll need to create a .env file with the following entries:
+
+| Variable name | Description |
+| --- | --- |
+| GITHUB_TOKEN | Token used to connect to the Github GraphQL API to retrieve info.  Needs repo access. |
+| GITHUB_OAUTH_CLIENT_ID | ID of a Github OAuth app to handle the login process. |
+| GITHUB_OAUTH_CLIENT_SECRET | Github OAuth app secret. |
+| JWT_SECRET | Symmetric key used for signing and verifying JWTs.  Can be anything on dev. |
+| BUILD_HOOK_URL | Netlify URL to ping when hitting the refresh link. |
+| TZ | Timezone.  Used on prod for all the date things, on dev it can default to your local machine time. |
+
+### Dev setup:
 
 ```
 yarn
 echo "GITHUB_TOKEN=x" > .env
-yarn start
+yarn start (or ntl dev)
 ```

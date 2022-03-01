@@ -1,5 +1,5 @@
+const fetch = require('node-fetch');
 const sortBy = require('lodash.sortby');
-const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
@@ -23,22 +23,19 @@ const query = `
 `;
 
 module.exports = async function scores() {
-  const githubResponse = await Cache('https://api.github.com/graphql', {
-    duration: "1h",
-    type: 'json',
-    fetchOptions: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-      },
-      body: JSON.stringify({ query })
-    }
+  const githubResponse = await fetch('https://api.github.com/graphql',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({ query })
   });
+  const githubJson = await githubResponse.json();
 
-  const prAuthors = githubResponse.data.search.nodes.map(node => node.author.login);
-  const allReviews = githubResponse.data.search.nodes.flatMap(node => node.reviews.nodes.map(innerNode => innerNode.author.login));
+  const prAuthors = githubJson.data.search.nodes.map(node => node.author.login);
+  const allReviews = githubJson.data.search.nodes.flatMap(node => node.reviews.nodes.map(innerNode => innerNode.author.login));
   const uniqueUsers = [...new Set(prAuthors.concat(allReviews))];
 
   const reviewCounts = allReviews.reduce((accum, username) => {

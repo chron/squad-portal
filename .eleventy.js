@@ -2,10 +2,15 @@ require('dotenv').config();
 const formatDistance = require('date-fns/formatDistance');
 const format = require('date-fns/format');
 const parseISO = require('date-fns/parseISO');
-const Image = require("@11ty/eleventy-img");
+const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
 const USERS = require('./_data/users'); // TODO: better way to load this?
 
 module.exports = function(eleventyConfig) {
+  eleventyConfig.addPlugin(EleventyServerlessBundlerPlugin, {
+    name: "serverless",
+    functionsDir: "./netlify/functions/",
+  });
+
   eleventyConfig.addPassthroughCopy('css');
   eleventyConfig.addPassthroughCopy({ public: '/' });
 
@@ -35,21 +40,7 @@ module.exports = function(eleventyConfig) {
     // input.avatar is the URL of their github avatar, but those are kinda boring?
     const avatarUrl = `https://avatars.dicebear.com/api/bottts/${userName}.svg`;
 
-    const metadata = await Image(avatarUrl, {
-      widths: [80],
-      formats: ['png'],
-      outputDir: './_site/img/',
-    });
-
-    const imageAttributes = {
-      alt: `Avatar of ${userName}`,
-      title: userName,
-      sizes: [40],
-      loading: 'lazy',
-      decoding: 'async',
-    };
-
-    return Image.generateHTML(metadata, imageAttributes);
+    return `<img src="${avatarUrl}" alt="Avatar of ${userName}">`;
   });
 
   return {
