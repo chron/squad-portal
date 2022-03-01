@@ -72,20 +72,14 @@ const query = `
 `;
 
 module.exports = async function() {
-  return []; // TEMP
-
   const githubResponse = await fetch('https://api.github.com/graphql', {
-    duration: "1h",
-    type: 'json',
-    fetchOptions: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-      },
-      body: JSON.stringify({ query }),
-    }
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({ query }),
   });
   const githubJson = await githubResponse.json();
 

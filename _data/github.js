@@ -23,20 +23,14 @@ const query = `
 `;
 
 module.exports = async function scores() {
-  return []; // TEMP
-
-  const githubResponse = await fetch('https://api.github.com/graphql', {
-    duration: "1h",
-    type: 'json',
-    fetchOptions: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-      },
-      body: JSON.stringify({ query })
-    }
+  const githubResponse = await fetch('https://api.github.com/graphql',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({ query })
   });
   const githubJson = await githubResponse.json();
 

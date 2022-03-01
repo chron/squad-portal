@@ -2,7 +2,7 @@ const { createCookie } = require('./lib/cookies.js');
 
 const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/authorize'
 const GITHUB_SCOPES = 'read:org';
-const REDIRECT_URI = 'http://localhost:8888/.netlify/functions/callback';
+const REDIRECT_URI = 'https://weka.digital/.netlify/functions/callback';
 
 module.exports.handler = async function(event, context) {
   const csrfToken = Math.random();
