@@ -45,7 +45,6 @@ module.exports.processPRData = (data) => {
 module.exports.addProgressStatusToPRs = (prs, person) => {
   return prs.map(pr => {
     const updatedPR = {...pr};
-    console.log(ourConstants);
     if (updatedPR.author.name === person.githubLogin) {
       updatedPR.progressStatus = 'authored';
     } else if (updatedPR.labels.includes(ourConstants.READY_TO_RELEASE)) {
