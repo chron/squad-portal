@@ -48,6 +48,10 @@ nav > a.active {
   font-weight: bold;
 }
 
+.hidden {
+  display: none;
+}
+
 .spacer {
   flex-grow: 1;
 }
@@ -79,6 +83,10 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
   filter:hue-rotate(120deg);
+}
+
+[data-toggle] {
+  cursor: pointer;
 }
 
 .main--leaderboard {
@@ -208,6 +216,26 @@ a, a:visited {
   align-items: center;
   gap: 1rem;
   margin: 2rem 0;
+}
+
+
+.wip-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: max-content 1fr 100px 100px 100px 100px;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .wip-grid {
+    grid-template-columns: max-content 1fr 50px 50px 50px 50px;
+  }
+}
+
+.full-row {
+  grid-column: 1 / -1;
 }
 
 .full-row-label {

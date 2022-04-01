@@ -3,7 +3,7 @@ const Cache = require("@11ty/eleventy-cache-assets");
 
 const query = `
   query {
-    search(query: "org:storypark is:pr is:open NOT combo in:title SLOW- OR GIRA- OR WEKA-", type: ISSUE, first: 100) {
+    search(query: "org:storypark is:pr is:open NOT combo", type: ISSUE, first: 100) {
       nodes {
         ... on PullRequest {
           title
@@ -67,13 +67,6 @@ const query = `
   }
 `;
 
-const EARLY_FEEDBACK = '0. Early Feedback Requested';
-const READY_TO_REVIEW = '1. Ready for code review';
-const READY_TO_TEST = '3. Ready for testing';
-const READY_TO_RELEASE = '6. Ready for deploy to prod';
-const ON_STAGING = '5. On StagingAU';
-const COMBO = 'Combo';
-//const MERGE_CONFLICT = 'Merge conflict';
 
 module.exports = async function() {
   const githubResponse = await Cache('https://api.github.com/graphql?cache=githubActive', {
@@ -95,7 +88,7 @@ module.exports = async function() {
   }
 
   const prs = githubResponse.data.search.nodes.map((node) => {
-    const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
+    const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA|RURU)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
 
     return {
       title: titleMatch ? titleMatch[2] : node.title,
@@ -111,41 +104,5 @@ module.exports = async function() {
     };
   });
 
-  return [
-    {
-      title: 'Pull requests that could use some early feedback',
-      prs: prs.filter(pr => pr.labels.includes(EARLY_FEEDBACK)),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    {
-      title: 'Pull requests that need more reviewers',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length < 2),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    {
-      title: 'Pull requests that are being reviewed',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_REVIEW) && pr.assigned.length >= 2),
-      classification: 'review',
-      showReviewStatus: true,
-    },
-    // TODO: PRs that have changes requested? Right now we only show accepted reviews
-    {
-      title: 'Pull requests in test that haven\'t made it to staging',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_TEST) && !(pr.labels.includes(ON_STAGING) || pr.labels.includes(COMBO))),
-      classification: 'test',
-    },
-    {
-      title: 'Pull requests that are being tested',
-      prs: prs.filter(pr => !pr.labels.includes(READY_TO_REVIEW) && (((pr.labels.includes(READY_TO_TEST) && pr.labels.includes(ON_STAGING)) || pr.labels.includes(COMBO)) && pr.assigned.length > 0)),
-      classification: 'test',
-    },
-    {
-      title: 'Ready to go out in next release',
-      prs: prs.filter(pr => pr.labels.includes(READY_TO_RELEASE)),
-      classification: 'finished',
-    },
-    // other?
-  ];
+  return prs;
 }

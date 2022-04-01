@@ -1,7 +1,5 @@
 module.exports = {
   eleventyComputed: {
-    githubActiveFiltered: (data) => {
-      return data.githubActive;
-    },
+    githubActiveFiltered: (data) => (data.helpers.processPRData(data)),
   },
 }
