@@ -1,4 +1,4 @@
-const CYCLE_START_DATE = require('constants').CYCLE_START_DATE;
+const CYCLE_START_DATE = require('./constants').CYCLE_START_DATE;
 const sortBy = require('lodash.sortby');
 const Cache = require("@11ty/eleventy-cache-assets");
 
