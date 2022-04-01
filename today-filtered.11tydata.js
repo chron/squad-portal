@@ -4,7 +4,7 @@ module.exports = {
       return `Today for ${data.user.nickname}`;
     },
     githubActiveFiltered: (data) => {
-      return data.githubActive.map((category) => {
+      return (data.helpers.processPRData(data)).map((category) => {
         return {
           ...category,
           prs: category.prs.filter(pr => {

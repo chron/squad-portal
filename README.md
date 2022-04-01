@@ -4,6 +4,8 @@
 
 Production site is at [https://weka.digital](https://weka.digital).
 
+There's a CYCLE_START_DATE in `_data/constants.js` that needs updating as we change cycles.
+
 Dev setup:
 
 ```

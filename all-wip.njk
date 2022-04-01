@@ -1,0 +1,63 @@
+---
+layout: 'layout'
+title: 'Work In Progress Table'
+---
+
+<main>
+  <h1>{{ title }}</h1>
+
+  <div class="wip-grid">
+    <div class="header"></div>
+    <div class="header">person</div>
+    <div class="header">📝 authored count</div>
+    <div class="header">🔍 reviewing count</div>
+    <div class="header">🤔 pending other review count</div>
+    <div class="header">🧪 testing count</div>
+
+    {% for entry in wipData %}
+    <div class="section section--padded" data-toggle="{{ entry.githubLogin }}">
+      <div class="avatar__wrapper" data-login="{{ entry.githubLogin | nickname }}">
+        {% avatar entry.githubLogin %}
+      </div>
+    </div>
+    <div class="section section--padded name" data-toggle="{{ entry.githubLogin }}">
+      {{ entry.githubLogin | nickname }}
+    </div>
+
+    <div class="section section--padded" data-toggle="{{ entry.githubLogin }}">
+      {{ entry.authoredPRs.length }}
+    </div>
+
+    <div class="section section--padded" data-toggle="{{ entry.githubLogin }}">
+      {{ entry.reviewingPRs.length }}
+    </div>
+
+    <div class="section section--padded" data-toggle="{{ entry.githubLogin }}">
+      {{ entry.reviewingOtherPRs.length }}
+    </div>
+
+    <div class="section section--padded" data-toggle="{{ entry.githubLogin }}">
+      {{ entry.testingPRs.length }}
+    </div>
+
+    <ul class="full-row hidden" data-target="{{ entry.githubLogin }}">
+      {% for pr in entry.allPrs %}
+        <li class="pr-link">
+          <a href="{{ pr.url }}" target="_blank">{{ helpers.emojiForStatus(pr.progressStatus) }} {{ pr.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</main>
+
+<script>
+  document.querySelectorAll('[data-toggle]').forEach(function(section) {
+    section.addEventListener('click', function() {
+      const dataSetToggle = section.dataset.toggle;
+      document.querySelectorAll(`[data-target=${dataSetToggle}]`).forEach(function(row) {
+        row.classList.toggle('hidden');
+      });
+    });
+  });
+</script>
