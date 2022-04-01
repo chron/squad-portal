@@ -88,7 +88,7 @@ module.exports = async function() {
   }
 
   const prs = githubResponse.data.search.nodes.map((node) => {
-    const titleMatch = node.title.match(/^\s*\[?((?:SLOW|GIRA|WEKA|RURU)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
+    const titleMatch = node.title.match(/^\s*\[?((?:BUG|GIRA|SLOW|SPA|RIMU|RURU|WEKA|🦉)[- ][^ \]]+)\]?\s*(?:[:-]\s*)?(.+)$/i);
 
     return {
       title: titleMatch ? titleMatch[2] : node.title,
